@@ -36,7 +36,7 @@ class IrcConnection
         $this->messageParser = new IrcMessageParser();
 
         if ($this->floodProtected) {
-            $this->loop->addPeriodicTimer($options->floodProtectionDelay / 1000, function () {
+            $this->loop->addPeriodicTimer($options->floodProtectionDelay / 1000, function (): void {
                 if ($msg = array_shift($this->messageQueue)) {
                     $this->connection->write($msg);
                 }
@@ -58,20 +58,20 @@ class IrcConnection
         $dns = $dnsResolverFactory->createCached('1.1.1.1', $this->loop);
         $dnsConnector = new \React\Socket\DnsConnector($tcpConnector, $dns);
 
-        $dnsConnector->connect($this->server)->then(function (ConnectionInterface $connection) {
+        $dnsConnector->connect($this->server)->then(function (ConnectionInterface $connection): void {
             $this->connection = $connection;
             $this->connected = true;
 
-            $this->connection->on('data', function ($data) {
+            $this->connection->on('data', function ($data): void {
                 foreach ($this->messageParser->parse($data) as $msg) {
                     $this->handleMessage($msg);
                 }
             });
 
-            $this->connection->on('close', function () {
+            $this->connection->on('close', function (): void {
                 $this->connected = false;
             });
-            $this->connection->on('end', function () {
+            $this->connection->on('end', function (): void {
                 $this->connected = false;
             });
         });
@@ -120,7 +120,7 @@ class IrcConnection
         }
 
         // Make sure the command ends in a newline character
-        if (substr($command, -1) !== "\n") {
+        if ("\n" !== substr($command, -1)) {
             $command .= "\n";
         }
 

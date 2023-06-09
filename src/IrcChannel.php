@@ -22,7 +22,7 @@ class IrcChannel
         }
 
         $this->name = $name;
-        if ($this->name[0] !== '#') {
+        if ('#' !== $this->name[0]) {
             $this->name = '#' . $this->name;
         }
     }
@@ -69,7 +69,7 @@ class IrcChannel
     public function setUsers(array $users): void
     {
         $this->users = array_map(function ($user): string {
-            if (in_array($user[0], ['+', '@'])) {
+            if (in_array($user[0], ['+', '@'], true)) {
                 $user = substr($user, 1);
             }
 

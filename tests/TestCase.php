@@ -9,6 +9,7 @@ use ReflectionClass;
 
 /**
  * @psalm-suppress UnusedMethodCall
+ * @small
  */
 class TestCase extends PHPUnitTestCase
 {

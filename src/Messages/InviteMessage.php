@@ -6,7 +6,6 @@ namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcChannel;
-use Jerodev\PhpIrcClient\IrcClient;
 
 class InviteMessage extends IrcMessage
 {

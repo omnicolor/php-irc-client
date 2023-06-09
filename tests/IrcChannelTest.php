@@ -8,6 +8,9 @@ use Error;
 use Exception;
 use Jerodev\PhpIrcClient\IrcChannel;
 
+/**
+ * @small
+ */
 final class IrcChannelTest extends TestCase
 {
     public function testEmptyChannelName(): void
