@@ -8,8 +8,8 @@ use Jerodev\PhpIrcClient\IrcMessageParser;
 use Jerodev\PhpIrcClient\Messages\InviteMessage;
 use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use Jerodev\PhpIrcClient\Messages\KickMessage;
-use Jerodev\PhpIrcClient\Messages\ModeMessage;
 use Jerodev\PhpIrcClient\Messages\MOTDMessage;
+use Jerodev\PhpIrcClient\Messages\ModeMessage;
 use Jerodev\PhpIrcClient\Messages\WelcomeMessage;
 
 /**

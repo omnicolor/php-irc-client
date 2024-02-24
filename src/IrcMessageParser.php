@@ -8,13 +8,15 @@ use Generator;
 use Jerodev\PhpIrcClient\Messages\InviteMessage;
 use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use Jerodev\PhpIrcClient\Messages\KickMessage;
-use Jerodev\PhpIrcClient\Messages\ModeMessage;
 use Jerodev\PhpIrcClient\Messages\MOTDMessage;
+use Jerodev\PhpIrcClient\Messages\ModeMessage;
 use Jerodev\PhpIrcClient\Messages\NameReplyMessage;
+use Jerodev\PhpIrcClient\Messages\NickMessage;
 use Jerodev\PhpIrcClient\Messages\PingMessage;
 use Jerodev\PhpIrcClient\Messages\PrivmsgMessage;
 use Jerodev\PhpIrcClient\Messages\TopicChangeMessage;
 use Jerodev\PhpIrcClient\Messages\WelcomeMessage;
+use Jerodev\PhpIrcClient\Messages\WhoisRegNickMessage;
 
 class IrcMessageParser
 {
@@ -58,8 +60,12 @@ class IrcMessageParser
                 return new MOTDMessage($message);
             case 'MODE':
                 return new ModeMessage($message);
+            case 'NICK':
+                return new NickMessage($message);
             case 'INVITE':
                 return new InviteMessage($message);
+            case IrcCommand::RPL_WHOISREGNICK_MSG:
+                return new WhoisRegNickMessage($message);
             default:
                 return new IrcMessage($message);
         }
