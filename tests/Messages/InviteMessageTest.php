@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Messages;
 
-use Jerodev\PhpIrcClient\Helpers\Event;
-use Jerodev\PhpIrcClient\IrcChannel;
 use Jerodev\PhpIrcClient\Messages\InviteMessage;
 use PHPUnit\Framework\TestCase;
 

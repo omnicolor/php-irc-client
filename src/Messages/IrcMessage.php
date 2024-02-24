@@ -65,7 +65,7 @@ class IrcMessage
         $command = trim($command);
         $i = 0;
 
-        if ($command[0] === ':' && false !== strpos($command, ' ')) {
+        if (':' === $command[0] && false !== strpos($command, ' ')) {
             $i = (int)strpos($command, ' ');
             $this->source = substr($command, 1, $i - 1);
 
@@ -73,7 +73,7 @@ class IrcMessage
         }
 
         $j = strpos($command, ' ', $i);
-        if ($j !== false) {
+        if (false !== $j) {
             $this->command = substr($command, $i, $j - $i);
         } else {
             $this->command = substr($command, $i);
@@ -82,7 +82,7 @@ class IrcMessage
         }
 
         $i = strpos($command, ':', $j);
-        if ($i !== false) {
+        if (false !== $i) {
             if ($i !== $j + 1) {
                 $this->commandsuffix = substr($command, $j + 1, $i - $j - 2);
             }

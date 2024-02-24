@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
-use Jerodev\PhpIrcClient\IrcChannel;
-use Jerodev\PhpIrcClient\IrcClient;
 
 class NickMessage extends IrcMessage
 {
@@ -28,10 +26,7 @@ class NickMessage extends IrcMessage
     public function getEvents(): array
     {
         return [
-            new Event(
-                'renamed',
-                [$this->oldNick, $this->newNick]
-            ),
+            new Event('renamed', [$this->oldNick, $this->newNick]),
         ];
     }
 }

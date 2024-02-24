@@ -6,6 +6,9 @@ namespace Tests;
 
 use Jerodev\PhpIrcClient\IrcUser;
 
+/**
+ * @small
+ */
 final class IrcUserTest extends TestCase
 {
     public function testToString(): void

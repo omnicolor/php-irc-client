@@ -11,7 +11,10 @@ use Jerodev\PhpIrcClient\IrcClient;
 use Jerodev\PhpIrcClient\IrcConnection;
 use Jerodev\PhpIrcClient\IrcMessageParser;
 
-class IrcMessageEventTest extends TestCase
+/**
+ * @small
+ */
+final class IrcMessageEventTest extends TestCase
 {
     public function testKick(): void
     {

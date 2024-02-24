@@ -12,6 +12,9 @@ use Jerodev\PhpIrcClient\Messages\MOTDMessage;
 use Jerodev\PhpIrcClient\Messages\ModeMessage;
 use Jerodev\PhpIrcClient\Messages\WelcomeMessage;
 
+/**
+ * @small
+ */
 final class IrcMessageParserTest extends TestCase
 {
     protected IrcMessageParser $parser;
@@ -84,6 +87,7 @@ final class IrcMessageParserTest extends TestCase
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
             $count++;
+            self::assertInstanceOf(MOTDMessage::class, $parsed);
             self::assertInstanceOf(IrcMessage::class, $parsed);
         }
         self::assertSame(9, $count);

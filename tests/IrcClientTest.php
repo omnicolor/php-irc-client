@@ -8,6 +8,9 @@ use Exception;
 use Jerodev\PhpIrcClient\IrcClient;
 use Jerodev\PhpIrcClient\Options\ClientOptions;
 
+/**
+ * @small
+ */
 final class IrcClientTest extends TestCase
 {
     public function testGetConnection(): void

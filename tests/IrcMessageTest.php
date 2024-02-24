@@ -12,7 +12,10 @@ use Jerodev\PhpIrcClient\Messages\PingMessage;
 use Jerodev\PhpIrcClient\Messages\PrivmsgMessage;
 use Jerodev\PhpIrcClient\Messages\TopicChangeMessage;
 
-class IrcMessageTest extends TestCase
+/**
+ * @small
+ */
+final class IrcMessageTest extends TestCase
 {
     public function testParseMultiple(): void
     {

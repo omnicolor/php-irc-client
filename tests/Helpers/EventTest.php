@@ -7,6 +7,9 @@ namespace Tests\Helpers;
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Tests\TestCase;
 
+/**
+ * @small
+ */
 final class EventTest extends TestCase
 {
     public function testGetArgumentsEmpty(): void

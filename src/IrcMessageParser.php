@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient;
 
 use Generator;
-use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use Jerodev\PhpIrcClient\Messages\InviteMessage;
+use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use Jerodev\PhpIrcClient\Messages\KickMessage;
 use Jerodev\PhpIrcClient\Messages\MOTDMessage;
 use Jerodev\PhpIrcClient\Messages\ModeMessage;
@@ -76,7 +76,7 @@ class IrcMessageParser
      */
     private function getCommand(string $message): bool | string
     {
-        if ($message[0] === ':') {
+        if (':' === $message[0]) {
             $message = trim(strstr($message, ' '));
         }
 

@@ -222,7 +222,7 @@ class IrcClient
      */
     private function channelName(string $channel): string
     {
-        if ($channel[0] !== '#') {
+        if ('#' !== $channel[0]) {
             $channel = "#$channel";
         }
 

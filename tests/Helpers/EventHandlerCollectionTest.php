@@ -8,6 +8,9 @@ use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\Helpers\EventHandlerCollection as Collection;
 use Tests\TestCase;
 
+/**
+ * @small
+ */
 final class EventHandlerCollectionTest extends TestCase
 {
     public function testInvokeWithUniversalHandler(): void

@@ -8,7 +8,10 @@ use Jerodev\PhpIrcClient\IrcClient;
 use Jerodev\PhpIrcClient\IrcMessageParser;
 use Jerodev\PhpIrcClient\Options\ClientOptions;
 
-class IrcClientResponseTest extends TestCase
+/**
+ * @small
+ */
+final class IrcClientResponseTest extends TestCase
 {
     /**
      * Test autojoining a channel after kick.

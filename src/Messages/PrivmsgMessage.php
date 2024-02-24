@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
-use Jerodev\PhpIrcClient\IrcChannel;
 
 class PrivmsgMessage extends IrcMessage
 {
@@ -25,7 +24,7 @@ class PrivmsgMessage extends IrcMessage
      */
     public function getEvents(): array
     {
-        if ($this->target[0] === '#') {
+        if ('#' === $this->target[0]) {
             return [
                 new Event('message', [$this->user, $this->channel, $this->message]),
                 new Event("message$this->target", [$this->user, $this->channel, $this->message]),
