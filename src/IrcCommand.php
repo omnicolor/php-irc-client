@@ -52,6 +52,7 @@ final class IrcCommand
     public const RPL_ISON = '303';
     public const RPL_UNAWAY = '305';
     public const RPL_NOWAWAY = '306';
+    public const RPL_WHOISREGNICK_MSG = '307';
     public const RPL_WHOISUSER = '311';
     public const RPL_WHOISSERVER = '312';
     public const RPL_WHOISOPERATOR = '313';
