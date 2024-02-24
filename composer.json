@@ -40,7 +40,7 @@
             "@psalm",
             "@coverage"
         ],
-        "coverage": "phpunit --coverage-html=vendor/coverage",
+        "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=vendor/coverage",
         "lint": "parallel-lint --colors src tests",
         "phpstan": "phpstan analyze",
         "psalm": "psalm",
