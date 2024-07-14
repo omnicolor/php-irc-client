@@ -9,12 +9,13 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - 8.2
+          - "8.2"
+          - "8.3"
     steps:
-      - name: "Checkout repository"
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: "Install PHP with extensions"
+      - name: Install PHP with extensions
         uses: shivammathur/setup-php@master
         with:
           tools: composer:v2
@@ -22,13 +23,25 @@ jobs:
           extensions: "mbstring"
           coverage: xdebug
 
-      - name: "Install Composer dependencies & app config"
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
         run: composer install --no-progress --no-interaction
 
-      - name: "Execute unit tests"
-        run: vendor/bin/phpunit --coverage-html coverage --coverage-clover 'coverage/clover.xml'
+      - name: Execute unit tests with code coverage
+        run: vendor/bin/phpunit --coverage-clover 'coverage/clover.xml'
 
-      - name: "Upload test coverage"
+      - name: Upload test coverage
         uses: actions/upload-artifact@v3
         with:
           name: Test Coverage Report
