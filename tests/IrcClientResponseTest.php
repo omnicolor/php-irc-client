@@ -21,17 +21,24 @@ final class IrcClientResponseTest extends TestCase
         $options = new ClientOptions('PhpIrcBot', ['#php-irc-client-test']);
         $options->autoRejoin = true;
 
+        $invokedCount = $this->exactly(3);
         $client = $this->getMockBuilder(IrcClient::class)
             ->setConstructorArgs(['', $options])
-            ->setMethods(['send'])
+            ->onlyMethods(['send'])
             ->getMock();
-        $client->expects($this->exactly(3))
+        $client->expects($invokedCount)
             ->method('send')
-            ->withConsecutive(
-                ['JOIN #php-irc-client-test'],
-                ['USER PhpIrcBot * * :PhpIrcBot'],
-                ['NICK PhpIrcBot'],
-            );
+            ->willReturnCallback(function (string $command) use ($invokedCount): void {
+                $expected = [
+                    'JOIN #php-irc-client-test',
+                    'USER PhpIrcBot * * :PhpIrcBot',
+                    'NICK PhpIrcBot',
+                ];
+                self::assertSame(
+                    $expected[$invokedCount->numberOfInvocations() - 1],
+                    $command,
+                );
+            });
 
         foreach ((new IrcMessageParser())->parse('KICK #php-irc-client-test PhpIrcBot') as $msg) {
             $this->callPrivate($client, 'handleIrcMessage', [$msg]);
@@ -45,14 +52,21 @@ final class IrcClientResponseTest extends TestCase
     {
         $client = $this->getMockBuilder(IrcClient::class)
             ->setConstructorArgs([''])
-            ->setMethods(['send'])
+            ->onlyMethods(['send'])
             ->getMock();
-        $client->expects($this->exactly(2))
+        $invoked = $this->exactly(2);
+        $client->expects($invoked)
             ->method('send')
-            ->withConsecutive(
-                ['JOIN #php-irc-client-test'],
-                ['PART #php-irc-client-test']
-            );
+            ->willReturnCallback(function (string $command) use ($invoked): void {
+                $expected = [
+                    'JOIN #php-irc-client-test',
+                    'PART #php-irc-client-test',
+                ];
+                self::assertSame(
+                    $expected[$invoked->numberOfInvocations() - 1],
+                    $command,
+                );
+            });
 
         $client->join('#php-irc-client-test');
         $client->part('#php-irc-client-test');
@@ -65,14 +79,21 @@ final class IrcClientResponseTest extends TestCase
     {
         $client = $this->getMockBuilder(IrcClient::class)
             ->setConstructorArgs(['', new ClientOptions('PhpIrcBot', ['#php-irc-client-test'])])
-            ->setMethods(['send'])
+            ->onlyMethods(['send'])
             ->getMock();
-        $client->expects($this->exactly(2))
+        $invoked = $this->exactly(2);
+        $client->expects($invoked)
             ->method('send')
-            ->withConsecutive(
-                ['USER PhpIrcBot * * :PhpIrcBot'],
-                ['NICK PhpIrcBot']
-            );
+            ->willReturnCallback(function (string $command) use ($invoked): void {
+                $expected = [
+                    'USER PhpIrcBot * * :PhpIrcBot',
+                    'NICK PhpIrcBot',
+                ];
+                self::assertSame(
+                    $expected[$invoked->numberOfInvocations() - 1],
+                    $command,
+                );
+            });
 
         foreach ((new IrcMessageParser())->parse('KICK #php-irc-client-test PhpIrcBot') as $msg) {
             $this->callPrivate($client, 'handleIrcMessage', [$msg]);
@@ -86,7 +107,7 @@ final class IrcClientResponseTest extends TestCase
     {
         $client = $this->getMockBuilder(IrcClient::class)
             ->setConstructorArgs([''])
-            ->setMethods(['send'])
+            ->onlyMethods(['send'])
             ->getMock();
         $client->expects($this->once())
             ->method('send')
@@ -104,7 +125,7 @@ final class IrcClientResponseTest extends TestCase
     {
         $client = $this->getMockBuilder(IrcClient::class)
             ->disableOriginalConstructor()
-            ->setMethods(['send'])
+            ->onlyMethods(['send'])
             ->getMock();
         $client->expects($this->once())
             ->method('send')
@@ -121,14 +142,21 @@ final class IrcClientResponseTest extends TestCase
     {
         $client = $this->getMockBuilder(IrcClient::class)
             ->disableOriginalConstructor()
-            ->setMethods(['send'])
+            ->onlyMethods(['send'])
             ->getMock();
-        $client->expects($this->exactly(2))
+        $invoked = $this->exactly(2);
+        $client->expects($invoked)
             ->method('send')
-            ->withConsecutive(
-                ['PRIVMSG #channel :Hello'],
-                ['PRIVMSG #channel :World!']
-            );
+            ->willReturnCallback(function (string $command) use ($invoked): void {
+                $expected = [
+                    'PRIVMSG #channel :Hello',
+                    'PRIVMSG #channel :World!',
+                ];
+                self::assertSame(
+                    $expected[$invoked->numberOfInvocations() - 1],
+                    $command,
+                );
+            });
 
         $client->say('#channel', "Hello\nWorld!");
     }

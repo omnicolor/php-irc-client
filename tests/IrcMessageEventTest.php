@@ -76,16 +76,17 @@ final class IrcMessageEventTest extends TestCase
 
     private function invokeClientEvents(string $message, array $expectedEvents): void
     {
-        $eventCollection = $this->getMockBuilder(EventHandlerCollection::class)
-            ->setMethods(['invoke'])
-            ->getMock();
-        $eventCollection->expects($this->exactly(count($expectedEvents)))
+        $invokedCount = $this->exactly(count($expectedEvents));
+        $eventCollection = $this->createMock(EventHandlerCollection::class);
+        $eventCollection->expects($invokedCount)
             ->method('invoke')
-            ->withConsecutive(...$expectedEvents);
+            ->willReturnCallback(function (Event|null $event) use ($expectedEvents, $invokedCount): void {
+                self::assertEquals($event, $expectedEvents[$invokedCount->numberOfInvocations() - 1][0]);
+            });
 
         $connection = $this->getMockBuilder(IrcConnection::class)
             ->setConstructorArgs([''])
-            ->setMethods(['write'])
+            ->onlyMethods(['write'])
             ->getMock();
 
         $client = new IrcClient('');
