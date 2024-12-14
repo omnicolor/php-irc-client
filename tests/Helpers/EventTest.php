@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Tests\Helpers;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
+use PHPUnit\Framework\Attributes\Small;
 use Tests\TestCase;
 
-/**
- * @small
- */
+#[Small]
 final class EventTest extends TestCase
 {
     public function testGetArgumentsEmpty(): void

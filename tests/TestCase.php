@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use ReflectionClass;
 
 use function get_class;
 
-/**
- * @psalm-suppress UnusedMethodCall
- * @small
- */
+#[Small]
 class TestCase extends PHPUnitTestCase
 {
     protected function callPrivate($object, string $method, array $args)

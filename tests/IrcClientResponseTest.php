@@ -7,10 +7,9 @@ namespace Tests;
 use Jerodev\PhpIrcClient\IrcClient;
 use Jerodev\PhpIrcClient\IrcMessageParser;
 use Jerodev\PhpIrcClient\Options\ClientOptions;
+use PHPUnit\Framework\Attributes\Small;
 
-/**
- * @small
- */
+#[Small]
 final class IrcClientResponseTest extends TestCase
 {
     /**

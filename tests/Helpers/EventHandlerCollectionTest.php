@@ -6,11 +6,11 @@ namespace Tests\Helpers;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\Helpers\EventHandlerCollection as Collection;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Small;
 use Tests\TestCase;
 
-/**
- * @small
- */
+#[Small]
 final class EventHandlerCollectionTest extends TestCase
 {
     public function testInvokeWithUniversalHandler(): void
@@ -25,9 +25,7 @@ final class EventHandlerCollectionTest extends TestCase
         self::assertTrue($called);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testInvokeWithUnrelatedHandler(): void
     {
         $handler = function (?array $arguments = []): void {

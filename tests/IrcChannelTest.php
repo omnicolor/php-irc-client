@@ -7,10 +7,9 @@ namespace Tests;
 use Error;
 use Exception;
 use Jerodev\PhpIrcClient\IrcChannel;
+use PHPUnit\Framework\Attributes\Small;
 
-/**
- * @small
- */
+#[Small]
 final class IrcChannelTest extends TestCase
 {
     public function testEmptyChannelName(): void

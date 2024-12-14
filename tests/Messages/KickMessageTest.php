@@ -5,11 +5,10 @@ declare(strict_types=1);
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcClient;
 use Jerodev\PhpIrcClient\Messages\KickMessage;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
+#[Small]
 final class KickMessageTest extends TestCase
 {
     public function testHandle(): void

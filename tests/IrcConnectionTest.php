@@ -6,10 +6,9 @@ namespace Tests;
 
 use Exception;
 use Jerodev\PhpIrcClient\IrcConnection;
+use PHPUnit\Framework\Attributes\Small;
 
-/**
- * @small
- */
+#[Small]
 final class IrcConnectionTest extends TestCase
 {
     public function testIsConnectedNotConnected(): void

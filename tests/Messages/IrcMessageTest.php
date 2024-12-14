@@ -3,11 +3,10 @@
 declare(strict_types=1);
 
 use Jerodev\PhpIrcClient\Messages\IrcMessage;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
+#[Small]
 final class IrcMessageTest extends TestCase
 {
     public function testEvents(): void
