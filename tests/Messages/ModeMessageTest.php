@@ -3,11 +3,10 @@
 declare(strict_types=1);
 
 use Jerodev\PhpIrcClient\Messages\ModeMessage;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
+#[Small]
 final class ModeMessageTest extends TestCase
 {
     protected const SERVER_MODE = ':Commlink!~Commlink@freenode-lj6.pif.i47qc9.IP MODE Commlink :+wRix';

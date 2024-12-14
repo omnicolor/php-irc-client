@@ -28,7 +28,6 @@ class EventHandlerCollection
             $this->eventHandlers[$event] = [];
         }
 
-        /** @psalm-suppress InvalidPropertyAssignmentValue */
         $this->eventHandlers[$event][] = $function;
     }
 

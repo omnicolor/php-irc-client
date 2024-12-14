@@ -7,7 +7,6 @@ namespace Jerodev\PhpIrcClient;
 /**
  * Map of user modes.
  * @see http://docs.dal.net/docs/modes.html
- * @psalm-suppress UnusedClass
  */
 enum UserMode: string
 {

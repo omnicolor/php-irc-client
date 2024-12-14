@@ -7,10 +7,10 @@ namespace Tests;
 use Exception;
 use Jerodev\PhpIrcClient\IrcClient;
 use Jerodev\PhpIrcClient\Options\ClientOptions;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Small;
 
-/**
- * @small
- */
+#[Small]
 final class IrcClientTest extends TestCase
 {
     public function testGetConnection(): void
@@ -87,9 +87,7 @@ final class IrcClientTest extends TestCase
         $client->connect();
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testDisconnectWithoutConnecting(): void
     {
         $client = new IrcClient('chat.example.com:6667');

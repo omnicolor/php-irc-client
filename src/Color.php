@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient;
 
-/**
- * @psalm-suppress UnusedClass
- */
 enum Color: string
 {
     case White = '00';

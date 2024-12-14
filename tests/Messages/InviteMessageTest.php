@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Tests\Messages;
 
 use Jerodev\PhpIrcClient\Messages\InviteMessage;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
+#[Small]
 final class InviteMessageTest extends TestCase
 {
     protected const MESSAGE = ':username!~remoteUsername@network/user/fullUsername INVITE Invited :#channel';

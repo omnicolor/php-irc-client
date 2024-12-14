@@ -10,10 +10,9 @@ use Jerodev\PhpIrcClient\IrcChannel;
 use Jerodev\PhpIrcClient\IrcClient;
 use Jerodev\PhpIrcClient\IrcConnection;
 use Jerodev\PhpIrcClient\IrcMessageParser;
+use PHPUnit\Framework\Attributes\Small;
 
-/**
- * @small
- */
+#[Small]
 final class IrcMessageEventTest extends TestCase
 {
     public function testKick(): void

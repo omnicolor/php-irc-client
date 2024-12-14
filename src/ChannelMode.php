@@ -6,7 +6,6 @@ namespace Jerodev\PhpIrcClient;
 
 /**
  * Map of channel modes.
- * @psalm-suppress UnusedClass
  * @see http://docs.dal.net/docs/modes.html
  * @see https://libera.chat/guides/channelmodes
  */

@@ -11,10 +11,9 @@ use Jerodev\PhpIrcClient\Messages\NameReplyMessage;
 use Jerodev\PhpIrcClient\Messages\PingMessage;
 use Jerodev\PhpIrcClient\Messages\PrivmsgMessage;
 use Jerodev\PhpIrcClient\Messages\TopicChangeMessage;
+use PHPUnit\Framework\Attributes\Small;
 
-/**
- * @small
- */
+#[Small]
 final class IrcMessageTest extends TestCase
 {
     public function testParseMultiple(): void

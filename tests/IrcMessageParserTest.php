@@ -11,10 +11,9 @@ use Jerodev\PhpIrcClient\Messages\KickMessage;
 use Jerodev\PhpIrcClient\Messages\MOTDMessage;
 use Jerodev\PhpIrcClient\Messages\ModeMessage;
 use Jerodev\PhpIrcClient\Messages\WelcomeMessage;
+use PHPUnit\Framework\Attributes\Small;
 
-/**
- * @small
- */
+#[Small]
 final class IrcMessageParserTest extends TestCase
 {
     protected IrcMessageParser $parser;
