@@ -18,15 +18,17 @@ use Jerodev\PhpIrcClient\Messages\TopicChangeMessage;
 use Jerodev\PhpIrcClient\Messages\WelcomeMessage;
 use Jerodev\PhpIrcClient\Messages\WhoisRegNickMessage;
 
+use function explode;
+use function strstr;
+use function trim;
+
 class IrcMessageParser
 {
     /**
      * Parse one or more IRC messages.
-     *
-     * @param string $message A string received from the IRC server
-     * @return Generator|IrcMessage[]
+     * @return Generator<IrcMessage>
      */
-    public function parse(string $message)
+    public function parse(string $message): Generator
     {
         foreach (explode("\n", $message) as $msg) {
             if ('' === trim($msg)) {
@@ -74,9 +76,9 @@ class IrcMessageParser
     /**
      * Get the COMMAND part of an IRC message.
      */
-    private function getCommand(string $message): bool | string
+    private function getCommand(string $message): bool|string
     {
-        if (':' === $message[0]) {
+        if (str_starts_with($message, ':')) {
             $message = trim(strstr($message, ' '));
         }
 

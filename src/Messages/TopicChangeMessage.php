@@ -8,6 +8,8 @@ use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcChannel;
 use Jerodev\PhpIrcClient\IrcClient;
 
+use function strstr;
+
 class TopicChangeMessage extends IrcMessage
 {
     public string $topic;

@@ -6,6 +6,8 @@ namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 
+use function strstr;
+
 class PrivmsgMessage extends IrcMessage
 {
     public string $message;

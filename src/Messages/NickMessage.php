@@ -6,6 +6,9 @@ namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 
+use function explode;
+use function trim;
+
 class NickMessage extends IrcMessage
 {
     public string $oldNick;

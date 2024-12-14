@@ -8,6 +8,9 @@ use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcChannel;
 use Jerodev\PhpIrcClient\IrcClient;
 
+use function explode;
+use function sprintf;
+
 class NameReplyMessage extends IrcMessage
 {
     /** @var array<int, string> */

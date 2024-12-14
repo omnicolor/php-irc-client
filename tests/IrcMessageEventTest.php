@@ -11,6 +11,8 @@ use Jerodev\PhpIrcClient\IrcClient;
 use Jerodev\PhpIrcClient\IrcConnection;
 use Jerodev\PhpIrcClient\IrcMessageParser;
 
+use function count;
+
 /**
  * @small
  */

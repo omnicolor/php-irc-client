@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient\Helpers;
 
+use function array_key_exists;
+use function array_merge;
+use function is_callable;
+
 class EventHandlerCollection
 {
     /** @var array<string, array<int, callable>> */
