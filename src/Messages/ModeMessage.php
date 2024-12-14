@@ -7,6 +7,9 @@ namespace Jerodev\PhpIrcClient\Messages;
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcChannel;
 
+use function explode;
+use function str_starts_with;
+
 class ModeMessage extends IrcMessage
 {
     public string $mode;
@@ -16,7 +19,7 @@ class ModeMessage extends IrcMessage
     public function __construct(string $command)
     {
         parent::__construct($command);
-        if ('#' === $this->commandsuffix[0]) {
+        if (str_starts_with($this->commandsuffix, '#')) {
             [$this->target, $this->mode] = explode(' ', $this->commandsuffix);
             $this->user = $this->payload;
             $this->channel = new IrcChannel($this->target);

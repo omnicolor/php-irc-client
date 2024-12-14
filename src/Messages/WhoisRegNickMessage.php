@@ -6,6 +6,8 @@ namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 
+use function explode;
+
 class WhoisRegNickMessage extends IrcMessage
 {
     public string $user;

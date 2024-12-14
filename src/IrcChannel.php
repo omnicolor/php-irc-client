@@ -6,23 +6,27 @@ namespace Jerodev\PhpIrcClient;
 
 use Exception;
 
+use function array_map;
+use function in_array;
+use function str_starts_with;
+use function substr;
+use function trim;
+
 class IrcChannel
 {
-    private string $name;
     private ?string $topic;
 
     /** @var array<int, string> */
     private array $users = [];
 
-    public function __construct(string $name)
+    public function __construct(private string $name)
     {
-        $name = trim($name);
-        if ('' === $name || '#' === $name) {
+        $this->name = trim($this->name);
+        if ('' === $this->name || '#' === $this->name) {
             throw new Exception('Channel name is empty.');
         }
 
-        $this->name = $name;
-        if ('#' !== $this->name[0]) {
+        if (!str_starts_with($this->name, '#')) {
             $this->name = '#' . $this->name;
         }
     }

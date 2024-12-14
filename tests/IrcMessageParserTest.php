@@ -13,6 +13,8 @@ use Jerodev\PhpIrcClient\Messages\ModeMessage;
 use Jerodev\PhpIrcClient\Messages\WelcomeMessage;
 use PHPUnit\Framework\Attributes\Small;
 
+use const PHP_EOL;
+
 #[Small]
 final class IrcMessageParserTest extends TestCase
 {
@@ -40,7 +42,7 @@ final class IrcMessageParserTest extends TestCase
     public function testMultipleLineMessage(): void
     {
         $message = ':*.freenode.net NOTICE * :*** Looking up your ident...'
-            . \PHP_EOL
+            . PHP_EOL
             . ':*.freenode.net NOTICE * :*** Looking up your hostname...';
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
@@ -74,15 +76,15 @@ final class IrcMessageParserTest extends TestCase
 
     public function testMotd(): void
     {
-        $message = ':*.freenode.net 372 test-irc-bot :  Hello, World!' . \PHP_EOL
-            . ':*.freenode.net 372 test-irc-bot :' . \PHP_EOL
-            . ':*.freenode.net 372 test-irc-bot :  Welcome to the' . \PHP_EOL
-            . ':*.freenode.net 372 test-irc-bot :          __                               _' . \PHP_EOL
-            . ':*.freenode.net 372 test-irc-bot :         / _|_ __ ___  ___ _ __   ___   __| | ___' . \PHP_EOL
-            . ':*.freenode.net 372 test-irc-bot :        | |_| \'__/ _ \\/ _ \\ \'_ \\ / _ \\ / _` |/ _ \\' . \PHP_EOL
-            . ':*.freenode.net 372 test-irc-bot :        |  _| | |  __/  __/ | | | (_) | (_| |  __/' . \PHP_EOL
-            . ':*.freenode.net 372 test-irc-bot :        |_| |_|  \\___|\\___|_| |_|\\___/ \\__,_|\\___|' . \PHP_EOL
-            . ':*.freenode.net 372 test-irc-bot :                                   AUTONOMOUS ZONE' . \PHP_EOL;
+        $message = ':*.freenode.net 372 test-irc-bot :  Hello, World!' . PHP_EOL
+            . ':*.freenode.net 372 test-irc-bot :' . PHP_EOL
+            . ':*.freenode.net 372 test-irc-bot :  Welcome to the' . PHP_EOL
+            . ':*.freenode.net 372 test-irc-bot :          __                               _' . PHP_EOL
+            . ':*.freenode.net 372 test-irc-bot :         / _|_ __ ___  ___ _ __   ___   __| | ___' . PHP_EOL
+            . ':*.freenode.net 372 test-irc-bot :        | |_| \'__/ _ \\/ _ \\ \'_ \\ / _ \\ / _` |/ _ \\' . PHP_EOL
+            . ':*.freenode.net 372 test-irc-bot :        |  _| | |  __/  __/ | | | (_) | (_| |  __/' . PHP_EOL
+            . ':*.freenode.net 372 test-irc-bot :        |_| |_|  \\___|\\___|_| |_|\\___/ \\__,_|\\___|' . PHP_EOL
+            . ':*.freenode.net 372 test-irc-bot :                                   AUTONOMOUS ZONE' . PHP_EOL;
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
             $count++;

@@ -12,6 +12,8 @@ use Jerodev\PhpIrcClient\IrcConnection;
 use Jerodev\PhpIrcClient\IrcMessageParser;
 use PHPUnit\Framework\Attributes\Small;
 
+use function count;
+
 #[Small]
 final class IrcMessageEventTest extends TestCase
 {

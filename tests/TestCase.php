@@ -8,6 +8,8 @@ use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use ReflectionClass;
 
+use function get_class;
+
 #[Small]
 class TestCase extends PHPUnitTestCase
 {
