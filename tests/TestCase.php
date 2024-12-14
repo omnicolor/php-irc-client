@@ -7,6 +7,8 @@ namespace Tests;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use ReflectionClass;
 
+use function get_class;
+
 /**
  * @psalm-suppress UnusedMethodCall
  * @small

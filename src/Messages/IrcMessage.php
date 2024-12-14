@@ -8,6 +8,10 @@ use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcChannel;
 use Jerodev\PhpIrcClient\IrcClient;
 
+use function array_key_exists;
+use function strpos;
+use function substr;
+
 class IrcMessage
 {
     public ?IrcChannel $channel = null;

@@ -9,8 +9,15 @@ use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\Helpers\EventHandlerCollection;
 use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use Jerodev\PhpIrcClient\Options\ConnectionOptions;
+use React\Dns\Resolver\Factory as ResolverFactory;
+use React\EventLoop\Factory as LoopFactory;
 use React\EventLoop\LoopInterface;
 use React\Socket\ConnectionInterface;
+use React\Socket\DnsConnector;
+use React\Socket\TcpConnector;
+
+use function array_shift;
+use function substr;
 
 class IrcConnection
 {
@@ -32,7 +39,7 @@ class IrcConnection
 
         $this->eventHandlerCollection = new EventHandlerCollection();
         $this->floodProtected = $options->floodProtectionDelay > 0;
-        $this->loop = \React\EventLoop\Factory::create();
+        $this->loop = LoopFactory::create();
         $this->messageParser = new IrcMessageParser();
 
         if ($this->floodProtected) {
@@ -53,28 +60,29 @@ class IrcConnection
             return;
         }
 
-        $tcpConnector = new \React\Socket\TcpConnector($this->loop);
-        $dnsResolverFactory = new \React\Dns\Resolver\Factory();
+        $tcpConnector = new TcpConnector($this->loop);
+        $dnsResolverFactory = new ResolverFactory();
         $dns = $dnsResolverFactory->createCached('1.1.1.1', $this->loop);
-        $dnsConnector = new \React\Socket\DnsConnector($tcpConnector, $dns);
+        $dnsConnector = new DnsConnector($tcpConnector, $dns);
 
-        $dnsConnector->connect($this->server)->then(function (ConnectionInterface $connection): void {
-            $this->connection = $connection;
-            $this->connected = true;
+        $dnsConnector->connect($this->server)
+            ->then(function (ConnectionInterface $connection): void {
+                $this->connection = $connection;
+                $this->connected = true;
 
-            $this->connection->on('data', function ($data): void {
-                foreach ($this->messageParser->parse($data) as $msg) {
-                    $this->handleMessage($msg);
-                }
-            });
+                $this->connection->on('data', function (string $data): void {
+                    foreach ($this->messageParser->parse($data) as $msg) {
+                        $this->handleMessage($msg);
+                    }
+                });
 
-            $this->connection->on('close', function (): void {
-                $this->connected = false;
+                $this->connection->on('close', function (): void {
+                    $this->connected = false;
+                });
+                $this->connection->on('end', function (): void {
+                    $this->connected = false;
+                });
             });
-            $this->connection->on('end', function (): void {
-                $this->connected = false;
-            });
-        });
 
         $this->loop->run();
     }

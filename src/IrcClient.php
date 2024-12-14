@@ -9,6 +9,11 @@ use Jerodev\PhpIrcClient\Helpers\EventHandlerCollection;
 use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use Jerodev\PhpIrcClient\Options\ClientOptions;
 
+use function array_key_exists;
+use function explode;
+use function is_string;
+use function trim;
+
 class IrcClient
 {
     /** @var array<string, IrcChannel> */
@@ -17,7 +22,7 @@ class IrcClient
     private bool $isAuthenticated = false;
     private EventHandlerCollection $messageEventHandlers;
     private ClientOptions $options;
-    private ?IrcUser $user = null;
+    private IrcUser|null $user = null;
 
     /**
      * Create a new IrcClient instance.
@@ -25,10 +30,15 @@ class IrcClient
      * @param string $server The server address to connect to including the port: `address:port`.
      * @param ClientOptions $options An object depicting options for this connection.
      */
-    public function __construct(string $server, ?ClientOptions $options = null)
-    {
+    public function __construct(
+        string $server,
+        ClientOptions|null $options = null
+    ) {
         $this->options = $options ?? new ClientOptions();
-        $this->connection = new IrcConnection($server, $this->options->connectionOptions());
+        $this->connection = new IrcConnection(
+            $server,
+            $this->options->connectionOptions(),
+        );
 
         if (null !== $this->options->nickname) {
             $this->user = new IrcUser($this->options->nickname);
@@ -53,7 +63,7 @@ class IrcClient
      * the nickname of the client.
      * @param IrcUser|string $user The user information.
      */
-    public function setUser(IrcUser | string $user): void
+    public function setUser(IrcUser|string $user): void
     {
         if (is_string($user)) {
             $user = new IrcUser($user);
@@ -222,7 +232,7 @@ class IrcClient
      */
     private function channelName(string $channel): string
     {
-        if ('#' !== $channel[0]) {
+        if (!str_starts_with($channel, '#')) {
             $channel = "#$channel";
         }
 

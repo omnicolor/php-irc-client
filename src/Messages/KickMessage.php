@@ -7,6 +7,9 @@ namespace Jerodev\PhpIrcClient\Messages;
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcClient;
 
+use function explode;
+use function substr;
+
 class KickMessage extends IrcMessage
 {
     public string $message;

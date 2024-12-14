@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient;
 
-class IrcUser
+use Stringable;
+
+class IrcUser implements Stringable
 {
     public function __construct(public string $nickname)
     {
