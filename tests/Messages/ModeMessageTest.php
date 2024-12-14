@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\Messages;
+
 use Jerodev\PhpIrcClient\Messages\ModeMessage;
 use PHPUnit\Framework\TestCase;
 

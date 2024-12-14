@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 $rules = [
@@ -39,7 +40,7 @@ $rules = [
     'elseif' => true,
     'encoding' => true,
     'full_opening_tag' => true,
-    'fully_qualified_strict_types' => true,
+    'fully_qualified_strict_types' => ['import_symbols' => true],
     'function_declaration' => true,
     'function_to_constant' => true,
     'general_phpdoc_tag_rename' => true,
@@ -189,7 +190,7 @@ $finder = Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return (new PhpCsFixer\Config())
+return (new Config())
     ->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true);
