@@ -26,6 +26,7 @@ class IrcMessage
      * This function is always called after the message is parsed.
      * The handle will only be executed once unless forced.
      *
+     * @codeCoverageIgnore
      * @param IrcClient $client A reference to the irc client object
      * @param bool $force Force handling this message even if already handled
      */
