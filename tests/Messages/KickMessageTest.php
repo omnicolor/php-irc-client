@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\Messages;
+
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcClient;
 use Jerodev\PhpIrcClient\Messages\KickMessage;

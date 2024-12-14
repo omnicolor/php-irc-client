@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests\Messages;
+
 use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
