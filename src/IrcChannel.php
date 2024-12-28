@@ -14,7 +14,7 @@ use function trim;
 
 class IrcChannel
 {
-    private ?string $topic;
+    private string $topic = '';
 
     /** @var array<int, string> */
     private array $users = [];
@@ -31,18 +31,12 @@ class IrcChannel
         }
     }
 
-    /**
-     * Fetch the name of the channel, including the `#`.
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Get the current channel topic.
-     */
-    public function getTopic(): ?string
+    public function getTopic(): string
     {
         return $this->topic;
     }
@@ -56,10 +50,6 @@ class IrcChannel
         return $this->users;
     }
 
-    /**
-     * Set the current channel topic.
-     * @param string $topic The topic
-     */
     public function setTopic(string $topic): void
     {
         $this->topic = $topic;

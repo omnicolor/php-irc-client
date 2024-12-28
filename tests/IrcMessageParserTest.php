@@ -89,7 +89,6 @@ final class IrcMessageParserTest extends TestCase
         foreach ($this->parser->parse($message) as $parsed) {
             $count++;
             self::assertInstanceOf(MOTDMessage::class, $parsed);
-            self::assertInstanceOf(IrcMessage::class, $parsed);
         }
         self::assertSame(9, $count);
     }
