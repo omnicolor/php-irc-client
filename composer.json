@@ -1,5 +1,5 @@
 {
-    "name": "jerodev/php-irc-client",
+    "name": "omnicolor/php-irc-client",
     "description": "PHP IRC client based on React",
     "type": "library",
     "license": "MIT",
@@ -7,6 +7,10 @@
         {
             "name": "Jeroen Deviaene",
             "email": "jeroen@deviaene.eu"
+        },
+        {
+            "name": "Omni Adams",
+            "email": "omni@digitaldarkness.com"
         }
     ],
     "minimum-stability": "stable",
@@ -24,6 +28,7 @@
         "sort-packages": true
     },
     "require": {
+        "php": "^8.0",
         "react/socket": "^1.12.0"
     },
     "require-dev": {
