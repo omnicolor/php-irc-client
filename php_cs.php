@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
+use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 $rules = [
     'array_syntax' => ['syntax' => 'short'],
@@ -12,8 +12,9 @@ $rules = [
         'operators' => ['=>' => null],
     ],
     'blank_line_after_namespace' => true,
-    'blank_lines_before_namespace' => true,
     'blank_line_after_opening_tag' => true,
+    'blank_lines_before_namespace' => true,
+    'blank_line_between_import_groups' => true,
     'braces_position' => true,
     'cast_spaces' => false,
     'class_attributes_separation' => [
@@ -40,7 +41,7 @@ $rules = [
     'elseif' => true,
     'encoding' => true,
     'full_opening_tag' => true,
-    'fully_qualified_strict_types' => ['import_symbols' => true],
+    'fully_qualified_strict_types' => true,
     'function_declaration' => true,
     'function_to_constant' => true,
     'general_phpdoc_tag_rename' => true,
@@ -70,7 +71,6 @@ $rules = [
         'strategy' => 'no_multi_line',
     ],
     'native_constant_invocation' => true,
-    'native_function_invocation' => true,
     'native_function_casing' => true,
     'new_with_parentheses' => true,
     'no_alias_functions' => true,
@@ -78,7 +78,6 @@ $rules = [
         'tokens' => [
             'extra',
             'throw',
-            'use',
         ],
     ],
     'no_blank_lines_after_class_opening' => true,
@@ -88,7 +87,6 @@ $rules = [
     'no_empty_comment' => true,
     'no_empty_phpdoc' => true,
     'no_empty_statement' => true,
-    'no_extra_blank_lines' => true,
     'no_leading_import_slash' => true,
     'no_leading_namespace_whitespace' => true,
     'no_mixed_echo_print' => [
@@ -102,6 +100,7 @@ $rules = [
     'no_spaces_after_function_name' => true,
     'no_spaces_around_offset' => true,
     'no_superfluous_elseif' => true,
+    'no_superfluous_phpdoc_tags' => true,
     'no_trailing_comma_in_singleline' => true,
     'no_trailing_whitespace' => true,
     'no_trailing_whitespace_in_comment' => true,
@@ -148,7 +147,7 @@ $rules = [
     'php_unit_expectation' => true,
     'php_unit_mock_short_will_return' => true,
     'php_unit_namespaced' => true,
-    'php_unit_size_class' => true,
+    'php_unit_size_class' => false,
     'psr_autoloading' => true,
     'self_accessor' => false,
     'short_scalar_cast' => true,
@@ -183,14 +182,12 @@ $rules = [
 $finder = Finder::create()
     ->in(__DIR__)
     ->name('*.php')
-    ->notName('*.blade.php')
-    ->exclude('bootstrap')
-    ->exclude('storage')
     ->exclude('vendor')
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return (new Config())
+return (new PhpCsFixer\Config())
+    ->setParallelConfig(ParallelConfigFactory::detect())
     ->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true);
