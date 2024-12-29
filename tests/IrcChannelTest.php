@@ -28,8 +28,7 @@ final class IrcChannelTest extends TestCase
     public function testGetTopicNotSet(): void
     {
         $channel = new IrcChannel('#irc-help');
-        self::expectException(Error::class);
-        $channel->getTopic();
+        self::assertSame('', $channel->getTopic());
     }
 
     public function testGetTopic(): void
