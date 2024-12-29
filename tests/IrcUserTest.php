@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Jerodev\PhpIrcClient\Tests;
 
 use Jerodev\PhpIrcClient\IrcUser;
 use PHPUnit\Framework\Attributes\Small;

@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Jerodev\PhpIrcClient\Tests;
 
-use Error;
 use Exception;
 use Jerodev\PhpIrcClient\IrcChannel;
 use PHPUnit\Framework\Attributes\Small;
