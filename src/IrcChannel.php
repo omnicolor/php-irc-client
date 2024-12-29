@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient;
 
 use Exception;
+use Stringable;
 
 use function array_map;
 use function in_array;
@@ -12,7 +13,7 @@ use function str_starts_with;
 use function substr;
 use function trim;
 
-class IrcChannel
+class IrcChannel implements Stringable
 {
     private string $topic = '';
 
@@ -29,6 +30,11 @@ class IrcChannel
         if (!str_starts_with($this->name, '#')) {
             $this->name = '#' . $this->name;
         }
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public function getName(): string

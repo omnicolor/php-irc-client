@@ -19,6 +19,8 @@ use Jerodev\PhpIrcClient\Messages\WelcomeMessage;
 use Jerodev\PhpIrcClient\Messages\WhoisRegNickMessage;
 
 use function explode;
+use function str_contains;
+use function str_starts_with;
 use function strstr;
 use function trim;
 
@@ -51,14 +53,14 @@ class IrcMessageParser
                 return new PingMessage($message);
             case 'PRIVMSG':
                 return new PrivmsgMessage($message);
-            case IrcCommand::RPL_WELCOME:
+            case IrcCommand::RPL_WELCOME->value:
                 return new WelcomeMessage($message);
             case 'TOPIC':
-            case IrcCommand::RPL_TOPIC:
+            case IrcCommand::RPL_TOPIC->value:
                 return new TopicChangeMessage($message);
-            case IrcCommand::RPL_NAMREPLY:
+            case IrcCommand::RPL_NAMREPLY->value:
                 return new NameReplyMessage($message);
-            case IrcCommand::RPL_MOTD:
+            case IrcCommand::RPL_MOTD->value:
                 return new MOTDMessage($message);
             case 'MODE':
                 return new ModeMessage($message);
@@ -66,7 +68,7 @@ class IrcMessageParser
                 return new NickMessage($message);
             case 'INVITE':
                 return new InviteMessage($message);
-            case IrcCommand::RPL_WHOISREGNICK_MSG:
+            case IrcCommand::RPL_WHOISREGNICK_MSG->value:
                 return new WhoisRegNickMessage($message);
             default:
                 return new IrcMessage($message);
@@ -78,7 +80,7 @@ class IrcMessageParser
      */
     private function getCommand(string $message): bool|string
     {
-        if (str_starts_with($message, ':')) {
+        if (str_starts_with($message, ':') && str_contains($message, ' ')) {
             $message = trim(strstr($message, ' '));
         }
 

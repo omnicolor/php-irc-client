@@ -10,6 +10,7 @@ use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use Jerodev\PhpIrcClient\Messages\KickMessage;
 use Jerodev\PhpIrcClient\Messages\MOTDMessage;
 use Jerodev\PhpIrcClient\Messages\ModeMessage;
+use Jerodev\PhpIrcClient\Messages\NickMessage;
 use Jerodev\PhpIrcClient\Messages\WelcomeMessage;
 use PHPUnit\Framework\Attributes\Small;
 
@@ -114,5 +115,14 @@ final class IrcMessageParserTest extends TestCase
             self::assertInstanceOf(WelcomeMessage::class, $parsed);
         }
         self::assertSame(1, $count);
+    }
+
+    public function testNick(): void
+    {
+        $message = ':Guest37719!~omni@freenode-c3ippk.ar2t.g4ar.iho72g.IP '
+            . 'NICK :omni';
+        foreach ($this->parser->parse($message) as $parsed) {
+            self::assertInstanceOf(NickMessage::class, $parsed);
+        }
     }
 }
