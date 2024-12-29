@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Helpers;
+namespace Jerodev\PhpIrcClient\Tests\Helpers;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
+use Jerodev\PhpIrcClient\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Small;
-use Tests\TestCase;
 
 #[Small]
 final class EventTest extends TestCase

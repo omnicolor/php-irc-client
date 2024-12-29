@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Messages;
+namespace Jerodev\PhpIrcClient\Tests\Messages;
 
 use Jerodev\PhpIrcClient\Messages\InviteMessage;
 use PHPUnit\Framework\Attributes\Small;

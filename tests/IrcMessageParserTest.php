@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Jerodev\PhpIrcClient\Tests;
 
 use Jerodev\PhpIrcClient\IrcMessageParser;
 use Jerodev\PhpIrcClient\Messages\InviteMessage;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Messages;
+namespace Jerodev\PhpIrcClient\Tests\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcClient;

@@ -21,7 +21,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Jerodev\\PhpIrcClient\\Tests\\": "tests/"
         }
     },
     "config": {
