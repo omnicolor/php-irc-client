@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient\Tests;
 
 use Jerodev\PhpIrcClient\IrcMessageParser;
+use Jerodev\PhpIrcClient\Messages\ISupportMessage;
 use Jerodev\PhpIrcClient\Messages\InviteMessage;
 use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use Jerodev\PhpIrcClient\Messages\KickMessage;
@@ -124,5 +125,40 @@ final class IrcMessageParserTest extends TestCase
         foreach ($this->parser->parse($message) as $parsed) {
             self::assertInstanceOf(NickMessage::class, $parsed);
         }
+    }
+
+    public function testSupport(): void
+    {
+        $message = ':*.freenode.net 005 PHP_IRC_Bot ACCEPT=30 AWAYLEN=200 '
+            . 'BOT=B CALLERID=g CASEMAPPING=ascii CHANLIMIT=#:20 '
+            . 'CHANMODES=IXZbew,k,BEFJLWdfjl,ACDKMNOPQRSTUcimnprstuz '
+            . 'CHANNELLEN=64 CHANTYPES=# ELIST=CMNTU ESILENCE=CcdiNnPpTtx '
+            . 'EXCEPTS=e :are supported by this server';
+        foreach ($this->parser->parse($message) as $parsed) {
+            self::assertInstanceOf(ISupportMessage::class, $parsed);
+        }
+        self::assertSame(
+            [
+                'ACCEPT' => '30',
+                'AWAYLEN' => '200',
+                'BOT' => 'B',
+                'CALLERID' => 'g',
+                'CASEMAPPING' => 'ascii',
+                'CHANLIMIT' => '#:20',
+                'CHANMODES' => [
+                    'IXZbew',
+                    'k',
+                    'BEFJLWdfjl',
+                    'ACDKMNOPQRSTUcimnprstuz',
+                ],
+                'CHANNELLEN' => '64',
+                'CHANTYPES' => '#',
+                'ELIST' => 'CMNTU',
+                'ESILENCE' => 'CcdiNnPpTtx',
+                'EXCEPTS' => 'e',
+            ],
+            // @phpstan-ignore variable.undefined
+            $parsed::$supported,
+        );
     }
 }

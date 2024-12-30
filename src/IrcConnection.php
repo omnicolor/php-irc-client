@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient;
 
 use Exception;
+use Jerodev\PhpIrcClient\Features\Feature;
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\Helpers\EventHandlerCollection;
 use Jerodev\PhpIrcClient\Messages\IrcMessage;
@@ -15,6 +16,7 @@ use React\EventLoop\LoopInterface;
 use React\Socket\ConnectionInterface;
 use React\Socket\DnsConnector;
 use React\Socket\TcpConnector;
+use RuntimeException;
 
 use function array_shift;
 use function substr;
@@ -27,6 +29,9 @@ class IrcConnection
     private bool $floodProtected;
     private LoopInterface $loop;
     private IrcMessageParser $messageParser;
+
+    /** @var array<string, Feature> */
+    public array $features = [];
 
     /** @var array<int, string> */
     private array $messageQueue = [];
@@ -150,5 +155,18 @@ class IrcConnection
     public function getServer(): string
     {
         return $this->server;
+    }
+
+    public function setSupport(array $supported): self
+    {
+        foreach ($supported as $feature => $value) {
+            try {
+                $this->features[$feature] = Feature::make($feature, $value);
+            } catch (RuntimeException) {
+                //error_log('Did not set ' . $feature);
+                continue;
+            }
+        }
+        return $this;
     }
 }

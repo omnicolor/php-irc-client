@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient;
 
 use Generator;
+use Jerodev\PhpIrcClient\Messages\ISupportMessage;
 use Jerodev\PhpIrcClient\Messages\InviteMessage;
 use Jerodev\PhpIrcClient\Messages\IrcMessage;
 use Jerodev\PhpIrcClient\Messages\KickMessage;
@@ -70,6 +71,8 @@ class IrcMessageParser
                 return new InviteMessage($message);
             case IrcCommand::RPL_WHOISREGNICK_MSG->value:
                 return new WhoisRegNickMessage($message);
+            case IrcCommand::RPL_ISUPPORT->value:
+                return new ISupportMessage($message);
             default:
                 return new IrcMessage($message);
         }
