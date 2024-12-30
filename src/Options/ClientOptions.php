@@ -34,7 +34,6 @@ class ClientOptions
 
     /**
      * Get the options for the IrcConnection from this collection.
-     * @return ConnectionOptions
      */
     public function connectionOptions(): ConnectionOptions
     {
