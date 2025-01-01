@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient\Features;
 
+use Override;
 use Stringable;
 
 /**
@@ -21,6 +22,7 @@ class StatusMessage extends Feature implements Stringable
     {
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->value;

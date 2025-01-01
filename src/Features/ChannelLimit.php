@@ -4,11 +4,22 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient\Features;
 
+use ArrayAccess;
+use Countable;
+use LogicException;
+use Override;
+use RuntimeException;
+
+use function array_key_exists;
 use function array_merge;
+use function count;
+use function current;
 use function explode;
 use function is_array;
+use function is_numeric;
 use function mb_str_split;
 use function mb_strlen;
+use function next;
 
 /**
  * The CHANLIMIT parameter indicates the number of channels a client may join.
@@ -26,7 +37,7 @@ use function mb_strlen;
  * The message parser has already broken the comma-separated values into an
  * array.
  */
-class ChannelLimit extends Feature
+class ChannelLimit extends Feature implements ArrayAccess, Countable
 {
     public readonly array $limits;
 
@@ -43,7 +54,7 @@ class ChannelLimit extends Feature
                 [1 => null],
             );
             if (1 !== mb_strlen($prefix)) {
-                // multiple prefixes.
+                // Multiple prefixes, split them and add to end.
                 $prefixes = mb_str_split($prefix);
                 foreach ($prefixes as $prefix) {
                     $value[] = $prefix . ':' . ($limit ?? '');
@@ -58,10 +69,52 @@ class ChannelLimit extends Feature
                 continue;
             }
 
-            $limits[$prefix] = (int)$limit;
+            if (!is_numeric($limit)) {
+                throw new RuntimeException('Limit must be an integer');
+            }
+
+            $limit = (int)$limit;
+            if (1 > $limit) {
+                throw new RuntimeException('Limit must be positive');
+            }
+            $limits[$prefix] = $limit;
             next($value);
         }
 
         $this->limits = $limits;
+    }
+
+    #[Override]
+    public function count(): int
+    {
+        return count($this->limits ?? []);
+    }
+
+    #[Override]
+    public function offsetExists(mixed $offset): bool
+    {
+        return array_key_exists($offset, $this->limits);
+    }
+
+    #[Override]
+    public function offsetGet(mixed $offset): int|null
+    {
+        if (!isset($this->limits[$offset])) {
+            return null;
+        }
+
+        return $this->limits[$offset];
+    }
+
+    #[Override]
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        throw new LogicException('ChannelLimit is readonly');
+    }
+
+    #[Override]
+    public function offsetUnset(mixed $offset): void
+    {
+        throw new LogicException('ChannelLimit is readonly');
     }
 }

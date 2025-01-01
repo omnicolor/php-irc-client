@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient\Tests\Features;
 
-use Jerodev\PhpIrcClient\ChannelMode;
-use Jerodev\PhpIrcClient\Features\ChannelModes;
+use Jerodev\PhpIrcClient\Features\UserModes;
+use Jerodev\PhpIrcClient\UserMode;
 use LogicException;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
 #[Small]
-final class ChannelModesTest extends TestCase
+final class UserModesTest extends TestCase
 {
     public function testTooFewModes(): void
     {
         self::expectException(RuntimeException::class);
-        self::expectExceptionMessage('Not enough channel modes');
-        new ChannelModes([]);
+        self::expectExceptionMessage('Not enough user modes');
+        new UserModes([]);
     }
 
-    public function testChannelModes(): void
+    public function testUserModes(): void
     {
-        // Freenode's channel modes as of writing this test.
-        $modes = new ChannelModes([
+        // Freenode's user modes as of writing this test.
+        $modes = new UserModes([
             'IXZbew',
             'k',
             'BEFJLWdfjl',
@@ -39,25 +39,24 @@ final class ChannelModesTest extends TestCase
 
     public function testAdditionalModes(): void
     {
-        $modes = new ChannelModes(['', '', '', '', '']);
+        $modes = new UserModes(['', '', '', '', '']);
         self::assertCount(4, $modes);
         self::assertCount(4, $modes->modes);
     }
 
     public function testIsModeSupported(): void
     {
-        $modes = new ChannelModes(['I', 'A', 'b', 'e']);
+        $modes = new UserModes(['I', 'A', 'B', 'e']);
         self::assertTrue($modes->isSupported('I'));
-        self::assertTrue($modes->isSupported(ChannelMode::Ban));
-        self::assertTrue($modes->isSupported(ChannelMode::Auditorium));
-        self::assertTrue($modes->isSupported(ChannelMode::BanExemption));
+        self::assertTrue($modes->isSupported(UserMode::Bot));
+        self::assertTrue($modes->isSupported(UserMode::ServerAdministrator));
         self::assertFalse($modes->isSupported('z'));
-        self::assertFalse($modes->isSupported(ChannelMode::Voice));
+        self::assertFalse($modes->isSupported(UserMode::ViewSpambotReports));
     }
 
     public function testOffsetExists(): void
     {
-        $modes = new ChannelModes(['', '', '', '', '']);
+        $modes = new UserModes(['', '', '', '', '']);
         self::assertArrayHasKey('A', $modes);
         self::assertArrayHasKey('B', $modes);
         self::assertArrayHasKey('C', $modes);
@@ -68,7 +67,7 @@ final class ChannelModesTest extends TestCase
 
     public function testOffsetGet(): void
     {
-        $modes = new ChannelModes(['Ia', '', '', '', '']);
+        $modes = new UserModes(['Ia', '', '', '', '']);
         self::assertSame(['I', 'a'], $modes['A']);
         self::assertSame([], $modes['B']);
         self::assertNull($modes['E']);
@@ -76,25 +75,25 @@ final class ChannelModesTest extends TestCase
 
     public function testOffsetSet(): void
     {
-        $modes = new ChannelModes(['Ia', '', '', '', '']);
+        $modes = new UserModes(['Ia', '', '', '', '']);
         self::expectException(LogicException::class);
-        self::expectExceptionMessage('ChannelModes are readonly');
+        self::expectExceptionMessage('UserModes are readonly');
         $modes['A'] = ['b'];
     }
 
     public function testAppend(): void
     {
-        $modes = new ChannelModes(['', '', '', '', '']);
+        $modes = new UserModes(['', '', '', '', '']);
         self::expectException(LogicException::class);
-        self::expectExceptionMessage('ChannelModes are readonly');
+        self::expectExceptionMessage('UserModes are readonly');
         $modes[] = ['b'];
     }
 
     public function testUnset(): void
     {
-        $modes = new ChannelModes(['', '', '', '', '']);
+        $modes = new UserModes(['', '', '', '', '']);
         self::expectException(LogicException::class);
-        self::expectExceptionMessage('ChannelModes are readonly');
+        self::expectExceptionMessage('UserModes are readonly');
         unset($modes['A']);
     }
 }

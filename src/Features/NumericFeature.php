@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient\Features;
 
+use Override;
 use RuntimeException;
 use Stringable;
 
@@ -26,6 +27,7 @@ abstract class NumericFeature extends Feature implements Stringable
         $this->value = (int)$value;
     }
 
+    #[Override]
     public function __toString(): string
     {
         return (string)$this->value;

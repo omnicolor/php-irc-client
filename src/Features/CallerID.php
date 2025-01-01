@@ -9,27 +9,25 @@ use RuntimeException;
 use Stringable;
 
 /**
- * The EXCEPTS parameter indicates that the server supports ban exceptions, as
- * specified in the ban exception channel mode section.
- *
- * The value is OPTIONAL and when not specified indicates that the letter "e"
- * is used as the channel mode for ban exceptions. If the value is specified,
- * the character indicates the letter which is used for ban exceptions.
+ * CALLERID, also known as usermode g, is another server-side ignore mechanism,
+ * via which ALL private messages or notices are blocked unless the user
+ * specifically unblocked them through an ACCEPT command. Unlike SILENCE,
+ * messages to channels are completely unaffected.
  */
-class BanExceptions extends Feature implements Stringable
+class CallerID extends Feature implements Stringable
 {
     public readonly string $letter;
 
     public function __construct(null|string $letter)
     {
         if (null === $letter) {
-            $this->letter = 'e';
+            $this->letter = 'g';
             return;
         }
 
         if (1 !== mb_strlen($letter)) {
             throw new RuntimeException(
-                'Ban exceptions flag must be one character'
+                'Caller ID flag must be one character'
             );
         }
 

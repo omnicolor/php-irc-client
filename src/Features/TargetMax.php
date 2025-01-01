@@ -7,6 +7,7 @@ namespace Jerodev\PhpIrcClient\Features;
 use ArrayAccess;
 use Countable;
 use LogicException;
+use Override;
 use RuntimeException;
 
 use function array_merge;
@@ -67,16 +68,19 @@ class TargetMax extends Feature implements ArrayAccess, Countable
         $this->commands = $commands;
     }
 
+    #[Override]
     public function count(): int
     {
         return count($this->commands ?? []);
     }
 
+    #[Override]
     public function offsetExists(mixed $offset): bool
     {
         return is_string($offset);
     }
 
+    #[Override]
     public function offsetGet(mixed $offset): int|null
     {
         if (isset($this->commands[$offset])) {
@@ -86,11 +90,13 @@ class TargetMax extends Feature implements ArrayAccess, Countable
         return null;
     }
 
+    #[Override]
     public function offsetSet(mixed $offset, mixed $value): void
     {
         throw new LogicException('TargetMax is readonly');
     }
 
+    #[Override]
     public function offsetUnset(mixed $offset): void
     {
         throw new LogicException('TargetMax is readonly');

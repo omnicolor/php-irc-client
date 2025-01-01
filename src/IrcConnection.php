@@ -163,7 +163,6 @@ class IrcConnection
             try {
                 $this->features[$feature] = Feature::make($feature, $value);
             } catch (RuntimeException) {
-                //error_log('Did not set ' . $feature);
                 continue;
             }
         }

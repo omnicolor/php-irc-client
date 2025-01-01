@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient\Features;
 
+use Override;
 use Stringable;
 
 /**
@@ -43,6 +44,7 @@ class CaseMapping extends Feature implements Stringable
     {
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->value;
