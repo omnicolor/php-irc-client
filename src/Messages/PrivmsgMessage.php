@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
+use Override;
 
 use function strstr;
 
@@ -13,9 +14,9 @@ class PrivmsgMessage extends IrcMessage
     public string $message;
     public string $user;
 
-    public function __construct(string $message)
+    public function __construct(protected string $command)
     {
-        parent::__construct($message);
+        parent::__construct($command);
         $this->user = strstr($this->source ?? '', '!', true);
         $this->target = (string)$this->commandsuffix;
         $this->message = $this->payload;
@@ -24,6 +25,7 @@ class PrivmsgMessage extends IrcMessage
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         if ('#' === $this->target[0]) {

@@ -47,35 +47,21 @@ class IrcMessageParser
      */
     private function parseSingle(string $message): IrcMessage
     {
-        switch ($this->getCommand($message)) {
-            case 'KICK':
-                return new KickMessage($message);
-            case 'PING':
-                return new PingMessage($message);
-            case 'PRIVMSG':
-                return new PrivmsgMessage($message);
-            case IrcCommand::RPL_WELCOME->value:
-                return new WelcomeMessage($message);
-            case 'TOPIC':
-            case IrcCommand::RPL_TOPIC->value:
-                return new TopicChangeMessage($message);
-            case IrcCommand::RPL_NAMREPLY->value:
-                return new NameReplyMessage($message);
-            case IrcCommand::RPL_MOTD->value:
-                return new MOTDMessage($message);
-            case 'MODE':
-                return new ModeMessage($message);
-            case 'NICK':
-                return new NickMessage($message);
-            case 'INVITE':
-                return new InviteMessage($message);
-            case IrcCommand::RPL_WHOISREGNICK_MSG->value:
-                return new WhoisRegNickMessage($message);
-            case IrcCommand::RPL_ISUPPORT->value:
-                return new ISupportMessage($message);
-            default:
-                return new IrcMessage($message);
-        }
+        return match ($this->getCommand($message)) {
+            'KICK' => new KickMessage($message),
+            'PING' => new PingMessage($message),
+            'PRIVMSG' => new PrivmsgMessage($message),
+            IrcCommand::RPL_WELCOME->value => new WelcomeMessage($message),
+            'TOPIC', IrcCommand::RPL_TOPIC->value => new TopicChangeMessage($message),
+            IrcCommand::RPL_NAMREPLY->value => new NameReplyMessage($message),
+            IrcCommand::RPL_MOTD->value => new MOTDMessage($message),
+            'MODE' => new ModeMessage($message),
+            'NICK' => new NickMessage($message),
+            'INVITE' => new InviteMessage($message),
+            IrcCommand::RPL_WHOISREGNICK_MSG->value => new WhoisRegNickMessage($message),
+            IrcCommand::RPL_ISUPPORT->value => new ISupportMessage($message),
+            default => new IrcMessage($message),
+        };
     }
 
     /**

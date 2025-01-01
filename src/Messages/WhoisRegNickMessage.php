@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
+use Override;
 
 use function explode;
 
@@ -12,15 +13,16 @@ class WhoisRegNickMessage extends IrcMessage
 {
     public string $user;
 
-    public function __construct(string $message)
+    public function __construct(protected string $command)
     {
-        parent::__construct($message);
-        [, , , $this->user] = explode(' ', $message);
+        parent::__construct($command);
+        [, , , $this->user] = explode(' ', $command);
     }
 
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         return [

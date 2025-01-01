@@ -6,6 +6,7 @@ namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcChannel;
+use Override;
 
 use function explode;
 use function substr;
@@ -17,7 +18,7 @@ class InviteMessage extends IrcMessage
      */
     public string $user;
 
-    public function __construct(string $command)
+    public function __construct(protected string $command)
     {
         parent::__construct($command);
         [$this->user] = explode(' ', $command);
@@ -30,6 +31,7 @@ class InviteMessage extends IrcMessage
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         return [

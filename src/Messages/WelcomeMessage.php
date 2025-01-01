@@ -6,14 +6,10 @@ namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcClient;
+use Override;
 
 class WelcomeMessage extends IrcMessage
 {
-    public function __construct(string $message)
-    {
-        parent::__construct($message);
-    }
-
     /**
      * On welcome message, join the selected channels.
      */
@@ -31,6 +27,7 @@ class WelcomeMessage extends IrcMessage
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         return [

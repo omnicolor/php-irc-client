@@ -7,6 +7,7 @@ namespace Jerodev\PhpIrcClient\Messages;
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcChannel;
 use Jerodev\PhpIrcClient\IrcClient;
+use Override;
 
 use function strstr;
 
@@ -14,9 +15,9 @@ class TopicChangeMessage extends IrcMessage
 {
     public string $topic;
 
-    public function __construct(string $message)
+    public function __construct(protected string $command)
     {
-        parent::__construct($message);
+        parent::__construct($command);
         $this->channel = new IrcChannel(strstr($this->commandsuffix ?? '', '#'));
         $this->topic = $this->payload;
     }
@@ -36,6 +37,7 @@ class TopicChangeMessage extends IrcMessage
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         return [

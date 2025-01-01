@@ -6,14 +6,10 @@ namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcClient;
+use Override;
 
 class PingMessage extends IrcMessage
 {
-    public function __construct(string $message)
-    {
-        parent::__construct($message);
-    }
-
     /**
      * Reply the ping message with a pong response.
      */
@@ -29,6 +25,7 @@ class PingMessage extends IrcMessage
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         return [

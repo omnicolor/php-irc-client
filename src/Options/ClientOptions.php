@@ -7,12 +7,12 @@ namespace Jerodev\PhpIrcClient\Options;
 class ClientOptions
 {
     /**
-     * Automaticly connect to the IRC server when creating the client.
+     * Automatically connect to the IRC server when creating the client.
      */
     public bool $autoConnect = false;
 
     /**
-     * Automaticly rejoin a channel when kicked.
+     * Automatically rejoin a channel when kicked.
      */
     public bool $autoRejoin = false;
 
@@ -23,12 +23,12 @@ class ClientOptions
     public int $floodProtectionDelay = 750;
 
     /**
-     * @param string $nickname The nickname used on the IRC server.
+     * @param string|null $nickname The nickname used on the IRC server.
      * @param array<int, string> $channels The channels to join on connection.
      */
     public function __construct(
         public ?string $nickname = null,
-        public array $channels = []
+        public array $channels = [],
     ) {
     }
 

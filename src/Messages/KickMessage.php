@@ -6,6 +6,7 @@ namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcClient;
+use Override;
 
 use function explode;
 use function substr;
@@ -16,10 +17,10 @@ class KickMessage extends IrcMessage
     public string $kicker;
     public string $user;
 
-    public function __construct(string $message)
+    public function __construct(protected string $command)
     {
-        parent::__construct($message);
-        [$this->kicker] = explode(' ', $message);
+        parent::__construct($command);
+        [$this->kicker] = explode(' ', $command);
         [$this->kicker] = explode('!', $this->kicker);
         $this->kicker = substr($this->kicker, 1);
 
@@ -30,6 +31,7 @@ class KickMessage extends IrcMessage
     /**
      * When the bot is kicked form a channel, it might need to auto-rejoin.
      */
+    #[Override]
     public function handle(IrcClient $client, bool $force = false): void
     {
         if ($this->handled && !$force) {
@@ -45,6 +47,7 @@ class KickMessage extends IrcMessage
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         return [

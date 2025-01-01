@@ -37,8 +37,8 @@ class IrcConnection
     private array $messageQueue = [];
 
     public function __construct(
-        private string $server,
-        ?ConnectionOptions $options = null
+        private readonly string $server,
+        ConnectionOptions|null $options = null
     ) {
         $options = $options ?? new ConnectionOptions();
 
