@@ -10,6 +10,7 @@ namespace Jerodev\PhpIrcClient;
  */
 enum UserMode: string
 {
+    case Bot = 'B';
     //case Deaf = 'd';
     case FloodControlExempt = 'F';
     case Helpful = 'h';

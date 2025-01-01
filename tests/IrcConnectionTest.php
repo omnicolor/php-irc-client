@@ -32,4 +32,18 @@ final class IrcConnectionTest extends TestCase
         );
         $connection->write('testing');
     }
+
+    public function testSetSupportEmpty(): void
+    {
+        $connection = new IrcConnection('chat.example.com');
+        $connection->setSupport([]);
+        self::assertCount(0, $connection->features);
+    }
+
+    public function testSetSupport(): void
+    {
+        $connection = new IrcConnection('chat.example.com');
+        $connection->setSupport(['TARGETMAX' => 'PRIVMSG:1', 'INVALID' => '5']);
+        self::assertCount(1, $connection->features);
+    }
 }
