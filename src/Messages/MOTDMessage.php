@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
+use Override;
 
 class MOTDMessage extends IrcMessage
 {
-    public function __construct(string $message)
-    {
-        parent::__construct($message);
-    }
-
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         return [

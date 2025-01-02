@@ -7,6 +7,7 @@ namespace Jerodev\PhpIrcClient\Messages;
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcChannel;
 use Jerodev\PhpIrcClient\IrcClient;
+use Override;
 
 use function explode;
 use function sprintf;
@@ -16,14 +17,14 @@ class NameReplyMessage extends IrcMessage
     /** @var array<int, string> */
     public array $names;
 
-    public function __construct(string $message)
+    public function __construct(protected string $command)
     {
-        parent::__construct($message);
-
+        parent::__construct($command);
         $this->channel = new IrcChannel(strstr($this->commandsuffix ?? '', '#'));
         $this->names = explode(' ', $this->payload);
     }
 
+    #[Override]
     public function handle(IrcClient $client, bool $force = false): void
     {
         if ($this->handled && !$force) {
@@ -39,6 +40,7 @@ class NameReplyMessage extends IrcMessage
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         return [

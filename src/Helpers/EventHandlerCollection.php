@@ -20,8 +20,8 @@ class EventHandlerCollection
      * @param callable|null $function The callable that will be invoked on event
      */
     public function addHandler(
-        callable | string $event,
-        ?callable $function
+        callable|string $event,
+        callable|null $function
     ): void {
         if (is_callable($event)) {
             $function = $event;

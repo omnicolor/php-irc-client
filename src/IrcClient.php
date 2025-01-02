@@ -21,14 +21,14 @@ class IrcClient
     private IrcConnection $connection;
     private bool $isAuthenticated = false;
     private EventHandlerCollection $messageEventHandlers;
-    private ClientOptions $options;
+    private readonly ClientOptions $options;
     private IrcUser|null $user = null;
 
     /**
      * Create a new IrcClient instance.
      *
      * @param string $server The server address to connect to including the port: `address:port`.
-     * @param ClientOptions $options An object depicting options for this connection.
+     * @param ClientOptions|null $options An object depicting options for this connection.
      */
     public function __construct(
         string $server,
@@ -183,10 +183,7 @@ class IrcClient
      */
     public function getNickname(): ?string
     {
-        if (null === $this->user) {
-            return null;
-        }
-        return $this->user->nickname;
+        return $this->user?->nickname;
     }
 
     /**

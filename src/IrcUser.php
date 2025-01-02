@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient;
 
+use Override;
 use Stringable;
 
 class IrcUser implements Stringable
@@ -12,6 +13,7 @@ class IrcUser implements Stringable
     {
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->nickname;

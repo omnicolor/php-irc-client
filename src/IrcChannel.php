@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jerodev\PhpIrcClient;
 
 use Exception;
+use Override;
 use Stringable;
 
 use function array_map;
@@ -15,23 +16,29 @@ use function trim;
 
 class IrcChannel implements Stringable
 {
+    private readonly string $name;
     private string $topic = '';
 
     /** @var array<int, string> */
     private array $users = [];
 
-    public function __construct(private string $name)
+    /**
+     * @throws Exception
+     */
+    public function __construct($name)
     {
-        $this->name = trim($this->name);
-        if ('' === $this->name || '#' === $this->name) {
+        $name = trim($name);
+        if ('' === $name || '#' === $name) {
             throw new Exception('Channel name is empty.');
         }
 
-        if (!str_starts_with($this->name, '#')) {
-            $this->name = '#' . $this->name;
+        if (!str_starts_with($name, '#')) {
+            $name = '#' . $name;
         }
+        $this->name = $name;
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->name;

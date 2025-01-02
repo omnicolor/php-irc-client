@@ -6,6 +6,7 @@ namespace Jerodev\PhpIrcClient\Messages;
 
 use Jerodev\PhpIrcClient\Helpers\Event;
 use Jerodev\PhpIrcClient\IrcChannel;
+use Override;
 
 use function explode;
 use function str_starts_with;
@@ -16,7 +17,7 @@ class ModeMessage extends IrcMessage
     public ?string $target = null;
     public string $user;
 
-    public function __construct(string $command)
+    public function __construct(protected string $command)
     {
         parent::__construct($command);
         if (str_starts_with($this->commandsuffix, '#')) {
@@ -32,6 +33,7 @@ class ModeMessage extends IrcMessage
     /**
      * @return array<int, Event>
      */
+    #[Override]
     public function getEvents(): array
     {
         return [
