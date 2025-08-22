@@ -34,7 +34,7 @@ class ChannelTypes extends Feature implements ArrayAccess, Countable
     #[Override]
     public function count(): int
     {
-        return count($this->types ?? []);
+        return count($this->types);
     }
 
     #[Override]

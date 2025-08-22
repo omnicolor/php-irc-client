@@ -62,7 +62,7 @@ class Prefixes extends Feature implements Countable
     #[Override]
     public function count(): int
     {
-        return count($this->modes ?? []);
+        return count($this->modes);
     }
 
     public function getModeForPrefix(string $prefix): null|string
