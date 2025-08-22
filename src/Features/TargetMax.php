@@ -71,7 +71,7 @@ class TargetMax extends Feature implements ArrayAccess, Countable
     #[Override]
     public function count(): int
     {
-        return count($this->commands ?? []);
+        return count($this->commands);
     }
 
     #[Override]

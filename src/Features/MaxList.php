@@ -82,7 +82,7 @@ class MaxList extends Feature implements ArrayAccess, Countable
     #[Override]
     public function count(): int
     {
-        return count($this->limits ?? []);
+        return count($this->limits);
     }
 
     #[Override]
