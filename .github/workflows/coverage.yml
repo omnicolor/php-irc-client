@@ -2,14 +2,14 @@ name: PHPUnit
 on:
   pull_request:
     paths-ignore:
-      - '**/*.md'
+      - "**/*.md"
 jobs:
   Code-Coverage:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php-version:
-          - "8.3"
+          - "8.4"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
           path: ./coverage/
           overwrite: true
 
-      - name: "Comment coverage report"
+      - name: Comment coverage report
         uses: danhunsaker/clover-reporter-action@v0.2.17-clover
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -60,6 +60,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           report: coverage/clover.xml
 
-      - name: "Retrieve the logs"
+      - name: Retrieve the logs
         if: ${{ failure() }}
         run: cat storage/logs/*
