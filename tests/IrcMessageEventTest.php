@@ -85,10 +85,10 @@ final class IrcMessageEventTest extends TestCase
                 self::assertEquals($event, $expectedEvents[$invokedCount->numberOfInvocations() - 1][0]);
             });
 
-        $connection = $this->getMockBuilder(IrcConnection::class)
+        $connection = $this->getStubBuilder(IrcConnection::class)
             ->setConstructorArgs([''])
             ->onlyMethods(['write'])
-            ->getMock();
+            ->getStub();
 
         $client = new IrcClient('');
         $client->setUser('PhpIrcClient');
