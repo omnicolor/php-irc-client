@@ -16,7 +16,7 @@ jobs:
       repository-projects: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
 
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@master
