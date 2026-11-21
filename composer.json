@@ -37,7 +37,8 @@
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^13.0",
-        "rector/rector": "*",
+        "phpwarden/phpwarden": "^1.0",
+        "rector/rector": "^2.7",
         "roave/security-advisories": "dev-latest"
     },
     "scripts": {
@@ -45,6 +46,7 @@
             "@lint",
             "@php-cs-fixer",
             "@phpstan",
+            "@phpwarden",
             "@rector",
             "@coverage"
         ],
@@ -53,6 +55,7 @@
         "php-cs-fixer": "php-cs-fixer fix --dry-run --config=php_cs.php -v --diff",
         "php-cs-fixer-fix": "php-cs-fixer fix --config=php_cs.php",
         "phpstan": "phpstan analyze",
+        "phpwarden": "PHPWARDEN_NO_HINT=1 phpwarden scan",
         "rector": "rector --dry-run",
         "rector-fix": "rector",
         "test": "phpunit"
