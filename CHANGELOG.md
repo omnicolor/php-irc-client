@@ -6,33 +6,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] - 2026-11-21
+
+### Changed
+- Updated lots of Composer dependencies.
+
+### Added
+- Rector, for improving code quality.
+- PHPWarden, for catching security issues.
+
 ## [1.1.3] - 2026-07-20
 
-Changed:
+### Changed
 - Updated lots of Composer dependencies.
 
 ## [1.1.2] - 2026-02-04
 
-Added:
+### Added
 - Created this changelog.
 
-Changed:
+### Changed
 - Updated Composer dependencies.
 
 ## [1.1.1] - 2024-12-28
 
-Changed:
+### Changed
 - Rename package in composer.json so it will show up in Packagist.
 
 ## [1.1.0] - 2024-12-14
 
 Lots of behind the scenes updates, mostly just improving code quality.
 
-Changed:
+### Changed
 - Upgraded to PHPUnit 11.
 - Made much of the code more strict.
 
-Removed:
+### Removed
 - Psalm, since it conflicts with the newest PHPUnit.
 
 ## [1.0.0] - 2024-12-14
