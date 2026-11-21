@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
@@ -53,7 +54,6 @@ $rules = [
     'heredoc_to_nowdoc' => true,
     'implode_call' => true,
     'include' => true,
-    'increment_style' => ['style' => 'post'],
     'indentation_type' => true,
     'is_null' => true,
     'lambda_not_used_import' => true,
@@ -186,7 +186,7 @@ $finder = Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return (new PhpCsFixer\Config())
+return (new Config())
     ->setParallelConfig(ParallelConfigFactory::detect())
     ->setFinder($finder)
     ->setRules($rules)

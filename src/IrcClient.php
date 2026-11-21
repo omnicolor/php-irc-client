@@ -21,7 +21,7 @@ class IrcClient
     private IrcConnection $connection;
     private bool $isAuthenticated = false;
     private EventHandlerCollection $messageEventHandlers;
-    private readonly ClientOptions $options;
+    private ClientOptions $options;
     private IrcUser|null $user = null;
 
     /**
@@ -45,10 +45,8 @@ class IrcClient
         }
         $this->messageEventHandlers = new EventHandlerCollection();
 
-        if (!empty($this->options->channels)) {
-            foreach ($this->options->channels as $channel) {
-                $this->channels[$channel] = new IrcChannel($channel);
-            }
+        foreach ($this->options->channels as $channel) {
+            $this->channels[$channel] = new IrcChannel($channel);
         }
 
         if ($this->options->autoConnect) {
@@ -82,7 +80,7 @@ class IrcClient
      */
     public function connect(): void
     {
-        if (!$this->user) {
+        if (!$this->user instanceof IrcUser) {
             throw new Exception(
                 'A nickname must be set before connecting to an irc server.'
             );
@@ -213,7 +211,7 @@ class IrcClient
         $message->injectChannel($this->channels);
         $message->handle($this);
 
-        if (!$this->isAuthenticated && null !== $this->user) {
+        if (!$this->isAuthenticated && $this->user instanceof IrcUser) {
             $this->send("USER {$this->user->nickname} * * :{$this->user->nickname}");
             $this->send("NICK {$this->user->nickname}");
             $this->isAuthenticated = true;
@@ -230,7 +228,7 @@ class IrcClient
     private function channelName(string $channel): string
     {
         if (!str_starts_with($channel, '#')) {
-            $channel = "#$channel";
+            return "#$channel";
         }
 
         return $channel;

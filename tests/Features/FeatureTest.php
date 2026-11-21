@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient\Tests\Feature;
 
+use Iterator;
 use Jerodev\PhpIrcClient\Features\AcceptListLength;
 use Jerodev\PhpIrcClient\Features\AwayMessageLength;
 use Jerodev\PhpIrcClient\Features\BanExceptions;
@@ -60,51 +61,49 @@ final class FeatureTest extends TestCase
         Feature::make('invaid', false);
     }
 
-    public static function featureProvider(): array
+    public static function featureProvider(): Iterator
     {
-        return [
-            ['ACCEPT', '30', AcceptListLength::class],
-            ['AWAYLEN', '50', AwayMessageLength::class],
-            ['BOT', 'B', Bot::class],
-            ['CALLERID', 'g', CallerID::class],
-            ['CASEMAPPING', 'ascii', CaseMapping::class],
-            ['CHANMODES', ['', '', '', ''], ChannelModes::class],
-            ['CHANLIMIT', '25', ChannelLimit::class],
-            ['CHANNELLEN', '200', ChannelNameLength::class],
-            ['CHANTYPES', '#', ChannelTypes::class],
-            ['ELIST', 'CMNTU', ExtendedList::class],
-            ['ESILENCE', 'CcdiNnPpTtx', ExtendedSilence::class],
-            ['EXCEPTS', 'e', BanExceptions::class],
-            ['EXTBAN', ['~', 'ABC'], ExtendedBanMasks::class],
-            ['KICKLEN', '25', KickReasonLength::class],
-            ['HOSTLEN', '25', HostnameLength::class],
-            ['INVEX', 'I', InviteExceptions::class],
-            ['KEYLEN', '255', ChannelKeyLength::class],
-            ['LINELEN', '255', LineLength::class],
-            ['MAXLIST', 'beI:25', MaxList::class],
-            ['MAXTARGETS', '3', MaxTargets::class],
-            ['MODES', '4', Modes::class],
-            ['MONITOR', '20', MonitorListLength::class],
-            ['NAMELEN', '255', NameLength::class],
-            ['NAMESX', '', NamesListExtended::class],
-            ['NETWORK', 'Freenode', NetworkName::class],
-            ['NICKLEN', '31', NicknameLength::class],
-            ['PREFIX', '(ov)@+', Prefixes::class],
-            ['SAFELIST', true, SafeList::class],
-            ['SECURELIST', '60', SecureListTime::class],
-            ['SILENCE', '20', SilenceListLength::class],
-            ['STATUSMSG', '~&@%+', StatusMessage::class],
-            ['TARGETMAX', [], TargetMax::class],
-            ['TOPICLEN', '200', TopicLength::class],
-            ['UHNAMES', true, NamesReplyContainsHostnames::class],
-            ['USERLEN', '200', UsernameLength::class],
-            ['USERIP', '', UserIP::class],
-            ['USERMODES', ['', '', 's', 'BDHILR'], UserModes::class],
-            ['VBANLIST', true, VaryingBanListSize::class],
-            ['VLIST', 'b', VaryingListSize::class],
-            ['WATCH', '32', WatchListLength::class],
-            ['WHOX', true, ExtendedWho::class],
-        ];
+        yield ['ACCEPT', '30', AcceptListLength::class];
+        yield ['AWAYLEN', '50', AwayMessageLength::class];
+        yield ['BOT', 'B', Bot::class];
+        yield ['CALLERID', 'g', CallerID::class];
+        yield ['CASEMAPPING', 'ascii', CaseMapping::class];
+        yield ['CHANMODES', ['', '', '', ''], ChannelModes::class];
+        yield ['CHANLIMIT', '25', ChannelLimit::class];
+        yield ['CHANNELLEN', '200', ChannelNameLength::class];
+        yield ['CHANTYPES', '#', ChannelTypes::class];
+        yield ['ELIST', 'CMNTU', ExtendedList::class];
+        yield ['ESILENCE', 'CcdiNnPpTtx', ExtendedSilence::class];
+        yield ['EXCEPTS', 'e', BanExceptions::class];
+        yield ['EXTBAN', ['~', 'ABC'], ExtendedBanMasks::class];
+        yield ['KICKLEN', '25', KickReasonLength::class];
+        yield ['HOSTLEN', '25', HostnameLength::class];
+        yield ['INVEX', 'I', InviteExceptions::class];
+        yield ['KEYLEN', '255', ChannelKeyLength::class];
+        yield ['LINELEN', '255', LineLength::class];
+        yield ['MAXLIST', 'beI:25', MaxList::class];
+        yield ['MAXTARGETS', '3', MaxTargets::class];
+        yield ['MODES', '4', Modes::class];
+        yield ['MONITOR', '20', MonitorListLength::class];
+        yield ['NAMELEN', '255', NameLength::class];
+        yield ['NAMESX', '', NamesListExtended::class];
+        yield ['NETWORK', 'Freenode', NetworkName::class];
+        yield ['NICKLEN', '31', NicknameLength::class];
+        yield ['PREFIX', '(ov)@+', Prefixes::class];
+        yield ['SAFELIST', true, SafeList::class];
+        yield ['SECURELIST', '60', SecureListTime::class];
+        yield ['SILENCE', '20', SilenceListLength::class];
+        yield ['STATUSMSG', '~&@%+', StatusMessage::class];
+        yield ['TARGETMAX', [], TargetMax::class];
+        yield ['TOPICLEN', '200', TopicLength::class];
+        yield ['UHNAMES', true, NamesReplyContainsHostnames::class];
+        yield ['USERLEN', '200', UsernameLength::class];
+        yield ['USERIP', '', UserIP::class];
+        yield ['USERMODES', ['', '', 's', 'BDHILR'], UserModes::class];
+        yield ['VBANLIST', true, VaryingBanListSize::class];
+        yield ['VLIST', 'b', VaryingListSize::class];
+        yield ['WATCH', '32', WatchListLength::class];
+        yield ['WHOX', true, ExtendedWho::class];
     }
 
     #[DataProvider('featureProvider')]

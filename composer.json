@@ -37,6 +37,7 @@
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^13.0",
+        "rector/rector": "*",
         "roave/security-advisories": "dev-latest"
     },
     "scripts": {
@@ -44,12 +45,16 @@
             "@lint",
             "@php-cs-fixer",
             "@phpstan",
+            "@rector",
             "@coverage"
         ],
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=vendor/coverage",
         "lint": "parallel-lint --colors src tests",
         "php-cs-fixer": "php-cs-fixer fix --dry-run --config=php_cs.php -v --diff",
+        "php-cs-fixer-fix": "php-cs-fixer fix --config=php_cs.php",
         "phpstan": "phpstan analyze",
+        "rector": "rector --dry-run",
+        "rector-fix": "rector",
         "test": "phpunit"
     }
 }

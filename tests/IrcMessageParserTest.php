@@ -20,7 +20,7 @@ use const PHP_EOL;
 #[Small]
 final class IrcMessageParserTest extends TestCase
 {
-    protected IrcMessageParser $parser;
+    private IrcMessageParser $parser;
 
     public function setUp(): void
     {
@@ -35,7 +35,7 @@ final class IrcMessageParserTest extends TestCase
             . '(xxx.xxx.xxx.xxx) instead.';
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
-            $count++;
+            ++$count;
             self::assertInstanceOf(IrcMessage::class, $parsed);
         }
         self::assertSame(1, $count);
@@ -48,7 +48,7 @@ final class IrcMessageParserTest extends TestCase
             . ':*.freenode.net NOTICE * :*** Looking up your hostname...';
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
-            $count++;
+            ++$count;
             self::assertInstanceOf(IrcMessage::class, $parsed);
         }
         self::assertSame(2, $count);
@@ -59,7 +59,7 @@ final class IrcMessageParserTest extends TestCase
         $message = ':user!~user@freenode/user/user INVITE otheruser :#channel';
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
-            $count++;
+            ++$count;
             self::assertInstanceOf(InviteMessage::class, $parsed);
         }
         self::assertSame(1, $count);
@@ -70,7 +70,7 @@ final class IrcMessageParserTest extends TestCase
         $message = ':user!~user@freenode/user/user KICK #channel otheruser :user';
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
-            $count++;
+            ++$count;
             self::assertInstanceOf(KickMessage::class, $parsed);
         }
         self::assertSame(1, $count);
@@ -89,7 +89,7 @@ final class IrcMessageParserTest extends TestCase
             . ':*.freenode.net 372 test-irc-bot :                                   AUTONOMOUS ZONE' . PHP_EOL;
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
-            $count++;
+            ++$count;
             self::assertInstanceOf(MOTDMessage::class, $parsed);
         }
         self::assertSame(9, $count);
@@ -100,7 +100,7 @@ final class IrcMessageParserTest extends TestCase
         $message = ':user!~user@freenode/user/user MODE #chan +v :otheruser';
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
-            $count++;
+            ++$count;
             self::assertInstanceOf(ModeMessage::class, $parsed);
         }
         self::assertSame(1, $count);
@@ -112,7 +112,7 @@ final class IrcMessageParserTest extends TestCase
             . 'Network Commlink!~Commlink@127.0.0.1';
         $count = 0;
         foreach ($this->parser->parse($message) as $parsed) {
-            $count++;
+            ++$count;
             self::assertInstanceOf(WelcomeMessage::class, $parsed);
         }
         self::assertSame(1, $count);
@@ -122,9 +122,7 @@ final class IrcMessageParserTest extends TestCase
     {
         $message = ':Guest37719!~omni@freenode-c3ippk.ar2t.g4ar.iho72g.IP '
             . 'NICK :omni';
-        foreach ($this->parser->parse($message) as $parsed) {
-            self::assertInstanceOf(NickMessage::class, $parsed);
-        }
+        self::assertContainsOnlyInstancesOf(NickMessage::class, $this->parser->parse($message));
     }
 
     public function testSupport(): void
@@ -137,6 +135,7 @@ final class IrcMessageParserTest extends TestCase
         foreach ($this->parser->parse($message) as $parsed) {
             self::assertInstanceOf(ISupportMessage::class, $parsed);
         }
+
         self::assertSame(
             [
                 'ACCEPT' => '30',

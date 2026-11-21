@@ -36,9 +36,6 @@ class IrcMessage
      */
     public function handle(IrcClient $client, bool $force = false): void
     {
-        if ($this->handled && !$force) {
-            return;
-        }
     }
 
     /**
@@ -70,11 +67,11 @@ class IrcMessage
         $command = trim($command);
         $i = 0;
 
-        if (':' === $command[0] && false !== strpos($command, ' ')) {
-            $i = (int)strpos($command, ' ');
+        if (':' === $command[0] && str_contains($command, ' ')) {
+            $i = strpos($command, ' ');
             $this->source = substr($command, 1, $i - 1);
 
-            $i++;
+            ++$i;
         }
 
         $j = strpos($command, ' ', $i);

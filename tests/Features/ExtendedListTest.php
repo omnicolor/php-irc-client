@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jerodev\PhpIrcClient\Tests\Features;
 
+use Iterator;
 use Jerodev\PhpIrcClient\Features\ExtendedList;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
@@ -34,16 +35,14 @@ final class ExtendedListTest extends TestCase
         self::assertTrue($extended_list->supportsSearchByUserCount());
     }
 
-    /** @return array<int, array<int, bool|string>> */
-    public static function elistProvider(): array
+    /** @return Iterator<int, array<int, (bool | string)>> */
+    public static function elistProvider(): Iterator
     {
-        return [
-            ['C', true, false, false, false, false],
-            ['M', false, true, false, false, false],
-            ['N', false, false, true, false, false],
-            ['T', false, false, false, true, false],
-            ['U', false, false, false, false, true],
-        ];
+        yield ['C', true, false, false, false, false];
+        yield ['M', false, true, false, false, false];
+        yield ['N', false, false, true, false, false];
+        yield ['T', false, false, false, true, false];
+        yield ['U', false, false, false, false, true];
     }
 
     #[DataProvider('elistProvider')]

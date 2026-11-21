@@ -28,7 +28,7 @@ final class EventHandlerCollectionTest extends TestCase
     #[DoesNotPerformAssertions]
     public function testInvokeWithUnrelatedHandler(): void
     {
-        $handler = function (?array $arguments = []): void {
+        $handler = function (?array $arguments = []): never {
             self::fail('Handler should not have been called');
         };
         $collection = new Collection();
@@ -62,7 +62,7 @@ final class EventHandlerCollectionTest extends TestCase
     {
         $called = 0;
         $handler = function () use (&$called): void {
-            $called++;
+            ++$called;
         };
         $collection = new Collection();
         $collection->addHandler('kick', $handler);

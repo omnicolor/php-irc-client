@@ -19,16 +19,15 @@ use React\Socket\TcpConnector;
 use RuntimeException;
 
 use function array_shift;
-use function substr;
 
 class IrcConnection
 {
     private bool $connected = false;
     private ?ConnectionInterface $connection = null;
-    private EventHandlerCollection $eventHandlerCollection;
-    private bool $floodProtected;
-    private LoopInterface $loop;
-    private IrcMessageParser $messageParser;
+    private readonly EventHandlerCollection $eventHandlerCollection;
+    private readonly bool $floodProtected;
+    private readonly LoopInterface $loop;
+    private readonly IrcMessageParser $messageParser;
 
     /** @var array<string, Feature> */
     public array $features = [];
@@ -40,7 +39,7 @@ class IrcConnection
         private readonly string $server,
         ConnectionOptions|null $options = null
     ) {
-        $options = $options ?? new ConnectionOptions();
+        $options ??= new ConnectionOptions();
 
         $this->eventHandlerCollection = new EventHandlerCollection();
         $this->floodProtected = $options->floodProtectionDelay > 0;
@@ -108,7 +107,7 @@ class IrcConnection
      */
     public function isConnected(): bool
     {
-        return $this->connection && $this->connected;
+        return $this->connection instanceof ConnectionInterface && $this->connected;
     }
 
     /**
@@ -133,7 +132,7 @@ class IrcConnection
         }
 
         // Make sure the command ends in a newline character
-        if ("\n" !== substr($command, -1)) {
+        if (!str_ends_with($command, "\n")) {
             $command .= "\n";
         }
 
