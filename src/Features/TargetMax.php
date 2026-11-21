@@ -83,11 +83,7 @@ class TargetMax extends Feature implements ArrayAccess, Countable
     #[Override]
     public function offsetGet(mixed $offset): int|null
     {
-        if (isset($this->commands[$offset])) {
-            return $this->commands[$offset];
-        }
-
-        return null;
+        return $this->commands[$offset] ?? null;
     }
 
     #[Override]

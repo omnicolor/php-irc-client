@@ -31,7 +31,7 @@ class NameReplyMessage extends IrcMessage
             return;
         }
 
-        if (!empty($this->names)) {
+        if ([] !== $this->names) {
             $client->getChannel($this->channel->getName())
                 ->setUsers($this->names);
         }

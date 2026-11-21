@@ -8,33 +8,28 @@ use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use ReflectionClass;
 
-use function get_class;
-
 #[Small]
 class TestCase extends PHPUnitTestCase
 {
-    protected function callPrivate($object, string $method, array $args)
+    protected function callPrivate($object, string $method, array $args): mixed
     {
-        $reflector = new ReflectionClass(get_class($object));
+        $reflector = new ReflectionClass($object::class);
         $method = $reflector->getMethod($method);
-        $method->setAccessible(true);
 
         return $method->invokeArgs($object, $args);
     }
 
     protected function setPrivate($object, string $property, $value = null): void
     {
-        $reflector = new ReflectionClass(get_class($object));
+        $reflector = new ReflectionClass($object::class);
         $property = $reflector->getProperty($property);
-        $property->setAccessible(true);
         $property->setValue($object, $value);
     }
 
-    protected function getPrivate($object, string $property)
+    protected function getPrivate($object, string $property): mixed
     {
-        $reflector = new ReflectionClass(get_class($object));
+        $reflector = new ReflectionClass($object::class);
         $property = $reflector->getProperty($property);
-        $property->setAccessible(true);
 
         return $property->getValue($object);
     }

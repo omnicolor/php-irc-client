@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 #[Small]
 final class InviteMessageTest extends TestCase
 {
-    protected const MESSAGE = ':username!~remoteUsername@network/user/fullUsername INVITE Invited :#channel';
+    private const string MESSAGE = ':username!~remoteUsername@network/user/fullUsername INVITE Invited :#channel';
 
     public function testConstructor(): void
     {

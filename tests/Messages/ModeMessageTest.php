@@ -11,8 +11,8 @@ use PHPUnit\Framework\TestCase;
 #[Small]
 final class ModeMessageTest extends TestCase
 {
-    protected const SERVER_MODE = ':Commlink!~Commlink@freenode-lj6.pif.i47qc9.IP MODE Commlink :+wRix';
-    protected const VOICE_MODE = ':omni!~omni@freenode/user/omni MODE #commlink +v :Commlink';
+    private const string SERVER_MODE = ':Commlink!~Commlink@freenode-lj6.pif.i47qc9.IP MODE Commlink :+wRix';
+    private const string VOICE_MODE = ':omni!~omni@freenode/user/omni MODE #commlink +v :Commlink';
 
     public function testConstructorWithNoChannel(): void
     {
